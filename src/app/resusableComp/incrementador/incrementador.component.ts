@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-incrementador',
@@ -38,4 +39,21 @@ export class IncrementadorComponent implements OnInit {
     this.changeValue.emit(this.porcentaje)
   }
 
-}
+  onChange(event) {
+
+    let elemetHTML:any = document.getElementsByName('porcentaje')[0];
+
+    if (event >= 100 ) {
+      this.porcentaje = 100
+    } else if (event <= 0) {
+      this.porcentaje = 0
+    } else {
+      this.porcentaje = event
+    }
+    elemetHTML.value = this.porcentaje;
+    this.changeValue.emit(this.porcentaje)
+    }
+    
+  }
+
+
