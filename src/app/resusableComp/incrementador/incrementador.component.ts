@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { element } from 'protractor';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+
 
 @Component({
   selector: 'app-incrementador',
@@ -8,12 +8,16 @@ import { element } from 'protractor';
 })
 export class IncrementadorComponent implements OnInit {
 
+ @ViewChild('txtPorcentaje', {static: false}) txtPorcentaje: ElementRef; //mejor que usar el getelementby...
+
  @Input() porcentaje: number = 50;
  @Input() leyenda: string = 'Barra Azul'
 
 //  @Output() changeValue: EventEmitter<number> = new EventEmitter();
 // Aquí abajo he cambiado el nombre de la variable changeValue => changedNameOutput
  @Output('changedNameOutput') changeValue: EventEmitter<number> = new EventEmitter();
+
+
 
   constructor() { }
 
@@ -26,7 +30,9 @@ export class IncrementadorComponent implements OnInit {
     } else {
     this.porcentaje = this.porcentaje + 10
     }
-    this.changeValue.emit(this.porcentaje)
+    this.changeValue.emit(this.porcentaje);
+    this.txtPorcentaje.nativeElement.focus(); // para que el foco se quede en el input cada vez que hago click
+
   }
 
   clickMinus() {
@@ -36,12 +42,16 @@ export class IncrementadorComponent implements OnInit {
     this.porcentaje = this.porcentaje - 10
     }
 
-    this.changeValue.emit(this.porcentaje)
+    this.changeValue.emit(this.porcentaje);
+    this.txtPorcentaje.nativeElement.focus();
+
+
   }
 
   onChange(event) {
 
-    let elemetHTML:any = document.getElementsByName('porcentaje')[0];
+    // let elemetHTML:any = document.getElementsByName('porcentaje')[0];
+
 
     if (event >= 100 ) {
       this.porcentaje = 100
@@ -50,10 +60,11 @@ export class IncrementadorComponent implements OnInit {
     } else {
       this.porcentaje = event
     }
-    elemetHTML.value = this.porcentaje;
-    this.changeValue.emit(this.porcentaje)
-    }
+    // elemetHTML.value = this.porcentaje;
+    this.txtPorcentaje.nativeElement.value = this.porcentaje;
+    this.changeValue.emit(this.porcentaje);
     
+    }
   }
 
 
