@@ -3,7 +3,7 @@ import { DashboadComponent } from './pages/dashboad/dashboad.component';
 import { LoginComponent } from './login/login.component';
 import { ProgressComponent } from './pages/progress/progress.component';
 import { Chart1Component } from './pages/chart1/chart1.component';
-import { NoPageFoundComponent } from './pages/no-page-found/no-page-found.component';
+import { NoPageFoundComponent } from './shared/no-page-found/no-page-found.component';
 import { PagesComponent } from './pages/pages.component';
 import { RegisterComponent } from './register/register.component';
 
