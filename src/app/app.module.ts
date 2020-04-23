@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { PagesModule } from './pages/pages.module';
-import { SharedModule } from './shared/shared.module';
+import { PAGES_ROUTES } from './pages/pages.routing';
 
 
 @NgModule({
@@ -20,6 +20,7 @@ import { SharedModule } from './shared/shared.module';
     AppRoutingModule,
     APP_ROUTES,
     PagesModule,
+    PAGES_ROUTES
   ],
   providers: [],
   bootstrap: [AppComponent]
