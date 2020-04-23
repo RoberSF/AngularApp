@@ -23,7 +23,10 @@
     <div class="col-6">
         <div class="card">
             <div class="card-body">
-               <app-incrementador leyenda="Progress Azul" [porcentaje]="20"></app-incrementador>
+               <!-- <app-incrementador (changeValue)="changeValue($event)" leyenda="Progress Azul" [porcentaje]="porcentaje"></app-incrementador> -->
+               <!-- el @output puedo hacerlo como asignación directa en vez de una función click -->
+               <app-incrementador (changedNameOutput)="porcentaje = $event" leyenda="Progress Azul" [porcentaje]="porcentaje"></app-incrementador>
+
             </div>
         </div>
     </div>

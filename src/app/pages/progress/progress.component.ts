@@ -16,5 +16,7 @@ export class ProgressComponent implements OnInit {
   ngOnInit() {
   }
 
-  
+  changeValue(event: number) {
+    this.porcentaje = event
+  }
 }

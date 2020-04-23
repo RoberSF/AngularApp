@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-incrementador',
@@ -10,6 +10,9 @@ export class IncrementadorComponent implements OnInit {
  @Input() porcentaje: number = 50;
  @Input() leyenda: string = 'Barra Azul'
 
+//  @Output() changeValue: EventEmitter<number> = new EventEmitter();
+// Aquí abajo he cambiado el nombre de la variable changeValue => changedNameOutput
+ @Output('changedNameOutput') changeValue: EventEmitter<number> = new EventEmitter();
 
   constructor() { }
 
@@ -22,6 +25,7 @@ export class IncrementadorComponent implements OnInit {
     } else {
     this.porcentaje = this.porcentaje + 10
     }
+    this.changeValue.emit(this.porcentaje)
   }
 
   clickMinus() {
@@ -30,6 +34,8 @@ export class IncrementadorComponent implements OnInit {
     } else {
     this.porcentaje = this.porcentaje - 10
     }
+
+    this.changeValue.emit(this.porcentaje)
   }
 
 }
