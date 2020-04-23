@@ -6,6 +6,7 @@ import { PagesComponent } from '../pages/pages.component';
 import { SharedModule } from '../shared/shared.module';
 import { PAGES_ROUTES } from './pages.routing';
 import { FormsModule } from '@angular/forms';
+import { IncrementadorComponent } from '../resusableComp/incrementador/incrementador.component';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { FormsModule } from '@angular/forms';
     ProgressComponent,
     Chart1Component,
     PagesComponent,
+    IncrementadorComponent
 
   ],
   exports: [
