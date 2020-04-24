@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { IncrementadorComponent } from '../resusableComp/incrementador/incrementador.component';
 import { ChartsModule } from 'ng2-charts';
 import { ChartDoughnutComponent } from '../resusableComp/chart-doughnut/chart-doughnut.component';
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
 @NgModule({
   declarations: [
     DashboadComponent,
@@ -16,7 +17,8 @@ import { ChartDoughnutComponent } from '../resusableComp/chart-doughnut/chart-do
     Chart1Component,
     PagesComponent,
     IncrementadorComponent,
-    ChartDoughnutComponent
+    ChartDoughnutComponent,
+    AccountSettingsComponent
 
   ],
   exports: [
