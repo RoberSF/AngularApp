@@ -10,6 +10,7 @@ import { IncrementadorComponent } from '../resusableComp/incrementador/increment
 import { ChartsModule } from 'ng2-charts';
 import { ChartDoughnutComponent } from '../resusableComp/chart-doughnut/chart-doughnut.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
+import { PromesasComponent } from './promesas/promesas.component';
 @NgModule({
   declarations: [
     DashboadComponent,
@@ -18,7 +19,8 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
     PagesComponent,
     IncrementadorComponent,
     ChartDoughnutComponent,
-    AccountSettingsComponent
+    AccountSettingsComponent,
+    PromesasComponent
 
   ],
   exports: [

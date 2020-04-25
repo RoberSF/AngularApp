@@ -4,6 +4,7 @@ import { DashboadComponent } from './dashboad/dashboad.component';
 import { ProgressComponent } from './progress/progress.component';
 import { Chart1Component } from './chart1/chart1.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
+import { PromesasComponent } from './promesas/promesas.component';
 
 
 
@@ -18,6 +19,7 @@ const pagesRoutes: Routes = [
             {path:'dashboard', component: DashboadComponent},
             {path:'progress', component: ProgressComponent},
             {path:'chart1', component: Chart1Component},
+            {path:'promesas', component: PromesasComponent},
             {path:'account-settings', component: AccountSettingsComponent},
             {path:'', redirectTo: '/dashboard', pathMatch: 'full'},
         ]
