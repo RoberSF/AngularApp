@@ -8,6 +8,9 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { PagesModule } from './pages/pages.module';
 import { FormsModule } from '@angular/forms';
+import { SettingsService } from './services/settings.service';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -17,14 +20,16 @@ import { FormsModule } from '@angular/forms';
     RegisterComponent,
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     APP_ROUTES,
     PagesModule,
     PAGES_ROUTES,
-    FormsModule
+    FormsModule,
+    RouterModule
   ],
-  providers: [],
+  providers: [SettingsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
