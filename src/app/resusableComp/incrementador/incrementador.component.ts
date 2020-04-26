@@ -10,10 +10,10 @@ export class IncrementadorComponent implements OnInit {
 
  @ViewChild('txtPorcentaje', {static: false}) txtPorcentaje: ElementRef; //mejor que usar el getelementby...
 
- @Input() porcentaje: number = 50;
- @Input() leyenda: string = 'Barra Azul'
+ @Input() porcentaje: number;
+ @Input() leyenda: string ;
 
-//  @Output() changeValue: EventEmitter<number> = new EventEmitter();
+// @Output() changeValue: EventEmitter<number> = new EventEmitter();
 // Aquí abajo he cambiado el nombre de la variable changeValue => changedNameOutput
  @Output('changedNameOutput') changeValue: EventEmitter<number> = new EventEmitter();
 

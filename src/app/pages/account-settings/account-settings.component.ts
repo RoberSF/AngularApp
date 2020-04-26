@@ -20,7 +20,6 @@ export class AccountSettingsComponent implements OnInit {
   }
 
 changeColor(theme:string, link: any) {
-  console.log(theme);
   this.checkPointer(link);
   // // cojo la url que se hace referencia en el index.html
   // let url = `assets/css/colors/${theme}.css`
