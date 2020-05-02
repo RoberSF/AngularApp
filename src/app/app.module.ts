@@ -7,10 +7,11 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { PagesModule } from './pages/pages.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SettingsService } from './services/settings.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { HttpClientModule} from '@angular/common/http';
 
 
 @NgModule({
@@ -27,7 +28,9 @@ import { RouterModule } from '@angular/router';
     PagesModule,
     PAGES_ROUTES,
     FormsModule,
-    RouterModule
+    ReactiveFormsModule,
+    RouterModule,
+    HttpClientModule
   ],
   providers: [SettingsService],
   bootstrap: [AppComponent]
