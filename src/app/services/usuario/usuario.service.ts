@@ -82,4 +82,13 @@ loadStorage() { // para que las variables se inicien otra vez al darle a recarga
   }
 }
 
+
+logOut() {
+  this.usuario = null;
+  this.token = '';
+  localStorage.removeItem('token');
+  localStorage.removeItem('usuario');
+  window.location.href = '#/login';
+}
+
 }
