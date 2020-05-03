@@ -11,8 +11,12 @@ import { map, filter, switchMap } from 'rxjs/operators';
 export class UsuarioService {
 
   url = 'http://localhost:4000'
+  usuario : Usuario;
+  token:string;
 
-  constructor(public http: HttpClient) { }
+  constructor(public http: HttpClient) {
+    this.loadStorage(); // para volver a cargar las variables al darle a reload
+   }
 
 
 
@@ -26,6 +30,17 @@ export class UsuarioService {
       }));
   }
 
+
+
+  loginGoogle(token: string) {
+    let url = this.url + '/login/google';
+
+    return this.http.post(url, { token}).pipe(map((response:any) => {
+      this.saveStorage(response.id, response.token, response.usuario);
+      return true;
+    }))
+  }
+
   login(usuario: Usuario, remember:boolean = false) {
     var _url = this.url + '/login';
 
@@ -37,15 +52,34 @@ export class UsuarioService {
 
     return this.http.post(_url, usuario).pipe(map(
       (response:any) => {
-        localStorage.setItem('id', response.id)
-        localStorage.setItem('token', response.token)
-        localStorage.setItem('usuario', JSON.stringify(response.id)) // por que viene en la response como un array 
-
+        this.saveStorage(response.id, response.token, response.usuario);
         return true
       }
     ))
   }
 
+saveStorage(id:string, token:string, usuario: Usuario) {
+  localStorage.setItem('id', id)
+  localStorage.setItem('token', token)
+  localStorage.setItem('usuario', JSON.stringify(usuario)) // por que viene en la response como un array 
 
+  this.usuario = usuario;
+  this.token = token;
+}
+
+
+IsLogged() {
+  return (this.token.length > 5? true : false) // esto lo uso en guard , para poder proteger las rutas
+}
+
+loadStorage() { // para que las variables se inicien otra vez al darle a recargar 
+  if (localStorage.getItem('token')) {
+    this.token = localStorage.getItem('token');
+    this.usuario = JSON.parse(localStorage.getItem('usuario'))
+  } else {
+    this.token = '';
+    this.usuario = null
+  }
+}
 
 }
