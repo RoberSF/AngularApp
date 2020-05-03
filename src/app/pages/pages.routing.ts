@@ -6,6 +6,7 @@ import { Chart1Component } from './chart1/chart1.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
+import { LoginGuardGuard } from '../services/login-guard.guard';
 
 
 
@@ -16,6 +17,7 @@ const pagesRoutes: Routes = [
     {
         path:'', 
         component: PagesComponent,
+        canActivate: [LoginGuardGuard], // puedo usarlo de manra global o componente a componente
         children: [
             {path:'dashboard', component: DashboadComponent, data: {title: 'DASHBOARD'}},
             {path:'progress', component: ProgressComponent,  data: {title: 'PROGRESS'}},

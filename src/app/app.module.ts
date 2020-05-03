@@ -12,6 +12,7 @@ import { SettingsService } from './services/settings.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule} from '@angular/common/http';
+import { LoginGuardGuard } from './services/login-guard.guard';
 
 
 @NgModule({
@@ -32,7 +33,7 @@ import { HttpClientModule} from '@angular/common/http';
     RouterModule,
     HttpClientModule
   ],
-  providers: [SettingsService],
+  providers: [SettingsService, LoginGuardGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

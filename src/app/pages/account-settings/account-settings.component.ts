@@ -20,32 +20,33 @@ export class AccountSettingsComponent implements OnInit {
   }
 
 changeColor(theme:string, link: any) {
-  this.checkPointer(link);
+  this.aplicarCheck(link);
   // // cojo la url que se hace referencia en el index.html
-  // let url = `assets/css/colors/${theme}.css`
+  let url = `assets/css/colors/${theme}.css`
   // // accedo al "id=theme" que está en el index y con set attribute le digo que a ese atributo le ponga el 2º parámetro(url)
-  // this._document.getElementById('theme').setAttribute('href', url );
+  this._document.getElementById('theme').setAttribute('href', url );
 
   // // pasamos los datos de settings al servicio
-  // this.SettingsService.settings.theme = theme;
-  // this.SettingsService.settings.themeUrl = url;
+  this.SettingsService.settings.theme = theme;
+  this.SettingsService.settings.themeUrl = url;
   // // guardamos los ajustes en el localstorage
-  // this.SettingsService.saveSettings();
+  this.SettingsService.saveSettings();
 
   // //hacemos que esto se cargue desde el principio, por tanto, vamos al app.component.ts 
   this.SettingsService.applyTheme(theme);
 }
 
-checkPointer(link:any) {
 
-  let selectors:any =  document.getElementsByClassName('selector');
- 
-  for ( let ref of selectors) {
+aplicarCheck( link: any ) {
+
+  let selectores: any = document.getElementsByClassName('selector');
+
+  for ( let ref of selectores ) {
     ref.classList.remove('working');
-    
   }
 
-  // link.classList.add('working')
+  link.classList.add('working');
+
 }
 
 checkAfterLoadTheme() {
