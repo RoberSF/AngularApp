@@ -14,7 +14,7 @@ declare function init_plugins();//de esta manera podemos llamar a cualquier scri
 })
 export class LoginComponent implements OnInit {
 
-
+  email: string;
   rememeberme = false;
 
 
@@ -23,6 +23,11 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     init_plugins();
+    this.email = localStorage.getItem('email') || '';
+
+    if ( this.email.length > 1) {
+      this.rememeberme = true
+    }
   }
 
   logIn(form: NgForm) {
@@ -30,6 +35,7 @@ export class LoginComponent implements OnInit {
 
     this.usuarioService.login(usuario, form.value.rememberme).subscribe(response => {
       console.log(response);
+      this.router.navigate(['/dashboard'])
     })
     // this.router.navigate(['dashboard'])
   }

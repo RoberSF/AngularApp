@@ -29,7 +29,21 @@ export class UsuarioService {
   login(usuario: Usuario, remember:boolean = false) {
     var _url = this.url + '/login';
 
-    return this.http.post(_url, usuario);
+    if ( remember = true) {
+      localStorage.setItem('email', usuario.email)
+    } else {
+      localStorage.removeItem('email')
+    }
+
+    return this.http.post(_url, usuario).pipe(map(
+      (response:any) => {
+        localStorage.setItem('id', response.id)
+        localStorage.setItem('token', response.token)
+        localStorage.setItem('usuario', JSON.stringify(response.id)) // por que viene en la response como un array 
+
+        return true
+      }
+    ))
   }
 
 
