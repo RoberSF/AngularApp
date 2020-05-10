@@ -12,6 +12,8 @@ import { ChartDoughnutComponent } from '../resusableComp/chart-doughnut/chart-do
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
+import { PipesModule } from '../pipes/pipes.module';
+import { ProfileComponent } from './profile/profile.component';
 @NgModule({
   declarations: [
     DashboadComponent,
@@ -22,7 +24,8 @@ import { RxjsComponent } from './rxjs/rxjs.component';
     ChartDoughnutComponent,
     AccountSettingsComponent,
     PromesasComponent,
-    RxjsComponent
+    RxjsComponent,
+    ProfileComponent
 
   ],
   exports: [
@@ -30,6 +33,7 @@ import { RxjsComponent } from './rxjs/rxjs.component';
     ProgressComponent,
     Chart1Component,
     PagesComponent,
+    PipesModule
   ],
   imports: [
     SharedModule,

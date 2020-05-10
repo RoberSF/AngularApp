@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Usuario } from '../../models/usuario.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import swal from 'sweetalert';
 import { map, filter, switchMap } from 'rxjs/operators';
+import { URL_SERVICIOS } from 'src/app/config/config';
+import { UploadFileService } from '../upload-file.service';
 
 
 @Injectable({
@@ -14,7 +16,7 @@ export class UsuarioService {
   usuario : Usuario;
   token:string;
 
-  constructor(public http: HttpClient) {
+  constructor(public http: HttpClient, public uploadService: UploadFileService) {
     this.loadStorage(); // para volver a cargar las variables al darle a reload
    }
 
@@ -90,5 +92,48 @@ logOut() {
   localStorage.removeItem('usuario');
   window.location.href = '#/login';
 }
+
+
+updateUser(usuario: Usuario) {
+
+  var headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+     Authorization: this.token
+  });
+
+  
+
+  var data = {
+    nombre: usuario.nombre,
+    email: usuario.email
+  }
+
+  let _url = 'http://localhost:4000' + '/usuario/' + usuario._id;
+
+
+  return this.http.put(_url, data, {headers: headers}).pipe(map((resp:any) => {
+    this.usuario = resp.usuario;
+    let usuarioDB: Usuario = resp.usuario;
+    this.saveStorage(usuarioDB._id, this.token, usuarioDB); //por que el storage lo usamos en la app por lo que hay que ponerlo 
+    swal('Usuaro Actualizado', usuario.nombre);
+
+    return true
+  }));
+
+};
+
+
+
+changeImage(file: File, id:string) {
+  this.uploadService.uploadFile(file, 'usuarios', id).then( resp => { // 'usuarios es por la ruta del back
+    console.log(resp);
+  }).catch(rej => {
+    console.log(rej)
+  });
+}
+
+
+
+
 
 }

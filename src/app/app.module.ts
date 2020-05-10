@@ -13,13 +13,15 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule} from '@angular/common/http';
 import { LoginGuardGuard } from './services/login-guard.guard';
+import { PipesModule } from './pipes/pipes.module';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent,
+    RegisterComponent
   ],
   imports: [
     CommonModule,
@@ -31,7 +33,8 @@ import { LoginGuardGuard } from './services/login-guard.guard';
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    HttpClientModule
+    HttpClientModule,
+    PipesModule
   ],
   providers: [SettingsService, LoginGuardGuard],
   bootstrap: [AppComponent]
