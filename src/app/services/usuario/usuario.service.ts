@@ -5,6 +5,7 @@ import swal from 'sweetalert';
 import { map, filter, switchMap } from 'rxjs/operators';
 import { URL_SERVICIOS } from 'src/app/config/config';
 import { UploadFileService } from '../upload-file.service';
+import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 
 
 @Injectable({
@@ -138,7 +139,15 @@ getUsers(since:number) {
   let url = URL_SERVICIOS + '/usuario?since=' + since;
 
   return this.http.get(url);
-}
+};
+
+
+searchUser(value:string) {
+
+  let url = URL_SERVICIOS + '/busqueda/coleccion/usuarios/' + value;
+
+  return this.http.get(url);
+};
 
 
 }

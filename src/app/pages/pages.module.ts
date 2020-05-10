@@ -35,8 +35,7 @@ import { CommonModule } from '@angular/common';
     DashboadComponent,
     ProgressComponent,
     Chart1Component,
-    PagesComponent,
-    PipesModule,
+    PagesComponent
     
   ],
   imports: [
@@ -44,7 +43,8 @@ import { CommonModule } from '@angular/common';
     PAGES_ROUTES,
     FormsModule,
     ChartsModule,
-    CommonModule
+    CommonModule,
+    PipesModule,
   ]
 
 })
