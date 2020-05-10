@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from '../../services/usuario/usuario.service';
 import { Usuario } from '../../models/usuario.model';
+import swal from 'sweetalert';
 
-
+declare var Swal:any;
 @Component({
   selector: 'app-usuarios',
   templateUrl: './usuarios.component.html',
@@ -65,6 +66,39 @@ export class UsuariosComponent implements OnInit {
         console.log(usuarios.usuarios);
         this.usuarios = usuarios.usuarios;
         this.loading = false;
+    });
+  };
+
+  deleteUser(usuario: Usuario) {
+   
+    if (usuario._id === this.usuarioService.usuario._id) { //el this.usuarioService.usuario es el usuario que está logueado
+      swal('No se puede borrar a si mismo', 'Intentelo con otro usuario');
+      return; //importante para que se detenga
+    };
+
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this imaginary file!",
+      icon: "warning",
+      buttons: [true],
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+     
+      if ( willDelete) {
+        this.usuarioService.deleteUser(usuario._id).subscribe(resp=> {
+          swal('Usuaro Borrado');
+          this.getUsers();
+          
+        })
+      }
+
+    });
+  };
+
+  saveUser(usuario: Usuario) {
+    this.usuarioService.updateRole(usuario).subscribe(resp => {
+      console.log('ok')
     });
   }
 

@@ -6,6 +6,7 @@ import { map, filter, switchMap } from 'rxjs/operators';
 import { URL_SERVICIOS } from 'src/app/config/config';
 import { UploadFileService } from '../upload-file.service';
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
+import { identifierModuleUrl } from '@angular/compiler';
 
 
 @Injectable({
@@ -147,6 +148,55 @@ searchUser(value:string) {
   let url = URL_SERVICIOS + '/busqueda/coleccion/usuarios/' + value;
 
   return this.http.get(url);
+};
+
+
+deleteUser(id: string) {
+
+  var headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+     Authorization: this.token
+  });
+
+  let url = URL_SERVICIOS + '/usuario/' + id ;
+
+  // url += 'token=' + this.token;
+
+  return this.http.delete(url, {headers: headers} )
+};
+
+
+updateRole(usuario: Usuario) {
+
+  var headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+     Authorization: this.token
+  });
+
+  
+
+  var data = {
+    nombre: usuario.nombre,
+    email: usuario.email,
+    role: usuario.role
+  }
+
+  let _url = 'http://localhost:4000' + '/usuario/' + usuario._id;
+
+
+  return this.http.put(_url, data, {headers: headers}).pipe(map((resp:any) => {
+    this.usuario = resp.usuario;
+
+    if (usuario._id === this.usuario._id ) { // this.usuario._id es el que está logueado
+
+      let usuarioDB: Usuario = resp.usuario;
+      this.saveStorage(usuarioDB._id, this.token, usuarioDB); //por que el storage lo usamos en la app por lo que hay que ponerlo 
+    }
+    swal('Usuaro Actualizado', usuario.nombre);
+
+    return true
+  }));
+
 };
 
 
