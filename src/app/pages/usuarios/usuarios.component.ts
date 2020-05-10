@@ -30,18 +30,18 @@ export class UsuariosComponent implements OnInit {
     });
   };
 
-  page(lessFive:number) {
-    let since = this.sinceUser + lessFive;
+  page(value:number) {
+    let since = this.sinceUser + value;
 
     if( since >= this.totalRegisters) {
       return; //esto quiere decir que se sale
     };
 
-    if ( since <= 0 ) {
+    if ( since < 0 ) {
       return;
     };
 
-    this.sinceUser += lessFive;
+    this.sinceUser += value;
     this.getUsers();
   };
 
