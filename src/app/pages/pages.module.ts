@@ -15,6 +15,7 @@ import { RxjsComponent } from './rxjs/rxjs.component';
 import { PipesModule } from '../pipes/pipes.module';
 import { ProfileComponent } from './profile/profile.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
+import { CommonModule } from '@angular/common';
 @NgModule({
   declarations: [
     DashboadComponent,
@@ -35,13 +36,15 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
     ProgressComponent,
     Chart1Component,
     PagesComponent,
-    PipesModule
+    PipesModule,
+    
   ],
   imports: [
     SharedModule,
     PAGES_ROUTES,
     FormsModule,
-    ChartsModule
+    ChartsModule,
+    CommonModule
   ]
 
 })

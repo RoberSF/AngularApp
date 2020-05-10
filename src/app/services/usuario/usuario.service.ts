@@ -133,7 +133,12 @@ changeImage(file: File, id:string) {
 }
 
 
+getUsers(since:number) {
 
+  let url = URL_SERVICIOS + '/usuario?since=' + since;
+
+  return this.http.get(url);
+}
 
 
 }

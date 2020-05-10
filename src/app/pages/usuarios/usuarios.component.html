@@ -29,11 +29,11 @@
         <div class="card">
             <div class="card-body">
               
-                <h3 class="card-title"> Usuarios Registrados (<small>123</small>)</h3>
+                <h3 class="card-title"> Usuarios Registrados (<small>{{totalRegisters}}</small>)</h3>
 
                 <table class="table table-hover">
                     <thead>
-                        <tr>
+                        <tr >
                             <th>Image</th>
                             <th>Email</th>
                             <th>Name</th>
@@ -44,12 +44,15 @@
                     </thead>
 
                     <tbody>
-                        <tr>
+                        <tr *ngFor="let usuario of usuarios">
                             <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>{{usuario.email}}</td>
+                            <td>{{usuario.nombre}}</td>
+                            <td>{{usuario.role}}</td>
+                            <td>
+                                <label class="label label-danger">Google</label> 
+                                <label class="label label-info">Normal</label> 
+                            </td>
                             <td>
                                 <button class="btn btn-primary">
                                     <i class="fa fa-save"></i>
@@ -62,9 +65,9 @@
                         </tr>
                     </tbody>
                 </table>
-                <button class="btn btn-secondary">Anteriores
+                <button (click)= "page(-5)" class="btn btn-secondary">Anteriores
                 </button>
-                <button class="btn btn-secondary">Siguientes
+                <button (click)= "page(+5)" class="btn btn-secondary">Siguientes
                 </button>
             </div>
         </div>

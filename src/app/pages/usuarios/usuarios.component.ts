@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UsuarioService } from '../../services/usuario/usuario.service';
+import { Usuario } from '../../models/usuario.model';
 
 @Component({
   selector: 'app-usuarios',
@@ -7,9 +9,41 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UsuariosComponent implements OnInit {
 
-  constructor() { }
+  usuarios: Usuario[] = [];
+  sinceUser = 0;
+  totalRegisters: number = 0;
+
+
+  constructor(public usuarioService: UsuarioService) { }
 
   ngOnInit() {
+    this.getUsers()
   }
+
+
+  getUsers() {
+
+    this.usuarioService.getUsers(this.sinceUser).subscribe((data:any) => {
+
+      this.totalRegisters = data.total;
+      this.usuarios = data.usuarios
+    });
+  };
+
+  page(lessFive:number) {
+    let since = this.sinceUser + lessFive;
+
+    if( since >= this.totalRegisters) {
+      return; //esto quiere decir que se sale
+    };
+
+    if ( since <= 0 ) {
+      return;
+    };
+
+    this.sinceUser += lessFive;
+    this.getUsers();
+  };
+
 
 }
