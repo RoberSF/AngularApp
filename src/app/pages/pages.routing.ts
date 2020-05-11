@@ -9,6 +9,7 @@ import { RxjsComponent } from './rxjs/rxjs.component';
 import { LoginGuardGuard } from '../services/login-guard.guard';
 import { ProfileComponent } from './profile/profile.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
+import { HospitalesComponent } from './hospitales/hospitales.component';
 
 
 
@@ -31,6 +32,7 @@ const pagesRoutes: Routes = [
 
 
             {path:'usuarios', component: UsuariosComponent,  data: {title: 'USUARIOS'}},
+            {path:'hospitales', component: HospitalesComponent,  data: {title: 'HOSPITALES'}},
             {path:'', redirectTo: '/dashboard', pathMatch: 'full'},
         ]
     },

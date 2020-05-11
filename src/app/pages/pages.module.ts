@@ -16,6 +16,10 @@ import { PipesModule } from '../pipes/pipes.module';
 import { ProfileComponent } from './profile/profile.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { CommonModule } from '@angular/common';
+import { ModalUploadComponent } from '../resusableComp/modal-upload/modal-upload.component';
+import { HospitalesComponent } from './hospitales/hospitales.component';
+import { HospitalService } from '../services/hospital.service';
+
 @NgModule({
   declarations: [
     DashboadComponent,
@@ -28,7 +32,9 @@ import { CommonModule } from '@angular/common';
     PromesasComponent,
     RxjsComponent,
     ProfileComponent,
-    UsuariosComponent
+    UsuariosComponent,
+    ModalUploadComponent,
+    HospitalesComponent
 
   ],
   exports: [
@@ -45,7 +51,8 @@ import { CommonModule } from '@angular/common';
     ChartsModule,
     CommonModule,
     PipesModule,
-  ]
+  ],
+  providers: [HospitalService],
 
 })
 export class PagesModule { }

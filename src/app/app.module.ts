@@ -17,11 +17,12 @@ import { PipesModule } from './pipes/pipes.module';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
   ],
   imports: [
     CommonModule,
