@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Hospital } from '../../models/hospital.model';
+import { HospitalService } from '../../services/hospital.service';
 
 @Component({
   selector: 'app-hospitales',
@@ -7,13 +9,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HospitalesComponent implements OnInit {
 
-  constructor() { }
+
+
+  hospitales: Hospital[] = [];
+  constructor(public hospitalService: HospitalService) { 
+    this.getHospitales()
+  }
 
   ngOnInit() {
   }
 
   getHospitales() {
-    
+    this.hospitalService.getHospitals().subscribe(hospitales => {
+      this.hospitales = hospitales;
+    });
+  }
+
+  saveHospital(hospital: Hospital) {
+
+  }
+
+  deleteHospital(hospital: Hospital) {
+
   }
 
 }
