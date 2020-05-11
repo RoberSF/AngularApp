@@ -74,7 +74,7 @@ export class HospitalService {
 
   searchHospital(value: string) {
 
-    let url = URL_SERVICIOS + '/busqueda/coleccion/hospital/' + value;
+    let url = URL_SERVICIOS + '/busqueda/coleccion/hospitales/' + value;
 
     return this.http.get(url);
   };
@@ -94,7 +94,8 @@ export class HospitalService {
     let _url = 'http://localhost:4000' + '/hospital/' + hospital._id;
 
     return this.http.put(_url, hospital, {headers: headers}).pipe(map((resp:any) => {
-      resp.hospital;
+      swal('Usuario Actualizado', 'success');
+      return resp.hospital;
     }));
 
   }
