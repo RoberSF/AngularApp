@@ -38,8 +38,17 @@ export class MedicosComponent implements OnInit {
 
   };
 
-  searchMedico() {
+  searchMedico(value: string) {
 
-  }
+    if ( value.length <= 0 ) {
+      this.loadMedicos() 
+      return;
+    }
+
+    this.medicoService.searchMedicos(value).subscribe( (medicos:any) => {
+      this.medicos = medicos.medicos
+      console.log(this.medicos)
+    })
+  };
 
 }
