@@ -30,10 +30,6 @@ export class MedicosComponent implements OnInit {
 
   };
 
-  deleteMedico(medico) {
-
-  };
-
   crearMedico() {
 
   };
@@ -49,6 +45,10 @@ export class MedicosComponent implements OnInit {
       this.medicos = medicos.medicos
       console.log(this.medicos)
     })
+  };
+
+  deleteMedico(medico: Medico) {
+    this.medicoService.deleteMedico(medico._id).subscribe( () => this.loadMedicos());
   };
 
 }
