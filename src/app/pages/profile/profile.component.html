@@ -9,6 +9,7 @@
                 <form ngNativeValidate #f="ngForm" (ngSubmit)="save(f.value)" class="form p-t-20">
                     <div class="form-group">
                         <label for="exampleInputuname">User Name</label>
+
                         <div class="input-group">
                             <div class="input-group-addon"><i class="ti-user"></i></div>
                             <input [ngModel]="usuario.nombre" name="nombre" type="text" class="form-control" placeholder="User Name" required>
@@ -34,12 +35,12 @@
 
     <div class="col-lg-5">
         <div class="card">
-            <div class="card-body" >
+            <div class="card-body">
                 <h4 class="card-title">User Photo</h4>
                 <h6 class="card-subtitle"> User Name </h6>
 
-                <img [src]="" class="w150">
-                <!-- <img [src]="imagenTemp" class="w150"> -->
+                <img *ngIf= "!imagenTemp" [src]="usuario.img | imagen" class="w-150">
+                <img *ngIf= "imagenTemp" [src]="imagenTemp" class="w150">
 
                 <input (change)="selectImage($event.target.files[0])" type="file">
 

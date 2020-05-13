@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../../models/usuario.model';
 import { UsuarioService } from '../../services/usuario/usuario.service';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-profile',
@@ -13,6 +14,8 @@ export class ProfileComponent implements OnInit {
   usuario: Usuario;
 
   uploadFile: File;
+
+  imagenTemp: any;
 
   constructor(public usuarioService: UsuarioService) {
     this.usuario = this.usuarioService.usuario; // ya tendría los datos del usuario
@@ -46,7 +49,19 @@ export class ProfileComponent implements OnInit {
       return;
     }
 
+    if ( file.type.indexOf('image') <0 ) {
+      swal('Sólo imagenes')
+    }
+
     this.uploadFile = file;
+
+
+    let reader = new FileReader(); //esto es javascript puro
+    let urlImagenTemp =  reader.readAsDataURL(file);
+
+    reader.onloadend = () => {
+      this.imagenTemp = reader.result;
+    }
 
   }
 
