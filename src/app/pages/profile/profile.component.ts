@@ -50,10 +50,10 @@ export class ProfileComponent implements OnInit {
 
   }
 
-  changeImage() {
+  changeImage(archivo: File, id:string) {
 
     // podría disparar la subida desde aquí pero mejor hacerla desde el servicio por que allí tengo el id
 
-    this.usuarioService.changeImage(this.uploadFile, this.usuario._id);
+    this.usuarioService.changeImage(this.uploadFile, this.usuario._id)
   }
 }

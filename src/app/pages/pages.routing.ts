@@ -10,6 +10,8 @@ import { LoginGuardGuard } from '../services/login-guard.guard';
 import { ProfileComponent } from './profile/profile.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { HospitalesComponent } from './hospitales/hospitales.component';
+import { MedicosComponent } from './medicos/medicos.component';
+import { MedicoComponent } from './medicos/medico/medico.component';
 
 
 
@@ -33,6 +35,8 @@ const pagesRoutes: Routes = [
 
             {path:'usuarios', component: UsuariosComponent,  data: {title: 'USUARIOS'}},
             {path:'hospitales', component: HospitalesComponent,  data: {title: 'HOSPITALES'}},
+            {path:'medicos', component: MedicosComponent,  data: {title: 'MEDICOS'}},
+            {path:'medico/:id', component: MedicoComponent,  data: {title: 'MEDICO'}},
             {path:'', redirectTo: '/dashboard', pathMatch: 'full'},
         ]
     },

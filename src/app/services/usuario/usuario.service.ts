@@ -5,8 +5,7 @@ import swal from 'sweetalert';
 import { map, filter, switchMap } from 'rxjs/operators';
 import { URL_SERVICIOS } from 'src/app/config/config';
 import { UploadFileService } from '../upload-file.service';
-import { ValueConverter } from '@angular/compiler/src/render3/view/template';
-import { identifierModuleUrl } from '@angular/compiler';
+
 
 
 @Injectable({
@@ -127,8 +126,11 @@ updateUser(usuario: Usuario) {
 
 
 changeImage(file: File, id:string) {
-  this.uploadService.uploadFile(file, 'usuarios', id).then( resp => { // 'usuarios es por la ruta del back
+  this.uploadService.uploadFile(file, 'usuarios', id).then( (resp:any) => { // 'usuarios es por la ruta del back
     console.log(resp);
+    this.usuario = resp.usuarioActualizado.img;
+    swal('Imagen actualizada', this.usuario.nombre)
+    this.saveStorage(id, this.token, this.usuario)
   }).catch(rej => {
     console.log(rej)
   });

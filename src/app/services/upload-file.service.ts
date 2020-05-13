@@ -9,9 +9,11 @@ export class UploadFileService {
 
   constructor() { }
 
+  
+  
   uploadFile(file: File, tipo:string, id: string ) {
 
-
+    // console.log(tipo); //recibe bien el tipo
     return new Promise((resolve,reject) => {
 
       
@@ -24,7 +26,7 @@ export class UploadFileService {
             if ( xhr.readyState ===4 ) { // el 4 es un estado de la subida, podría jugar con ellos para hacer un loading
               if (xhr.status === 200 ) {
                 swal('Imagen Subida', 'success');
-                resolve(xhr.response);
+                resolve(JSON.parse(xhr.response));
               } else {
                 swal('Subida Fallida', 'wrong');
                 reject(xhr.response)
