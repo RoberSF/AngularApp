@@ -5,21 +5,22 @@
             <div class="card-body">
                 <h4 class="card-title">Médico</h4>
 
-                <form ngNativeValidate #f="ngForm" class="form p-t-20">
+                <form ngNativeValidate #f="ngForm" (ngSubmit)="guardarMedico(f)" class="form p-t-20">
                     <!-- el ngNativeValidate son validaciones nativas -->
                     <div class="form-group">
                         <label for="exampleInputuname">Nombre del Medico</label>
 
                         <div class="input-group">
                             <div class="input-group-addon"><i class="ti-user"></i></div>
-                            <input  name="nombre" type="text" class="form-control" placeholder="Nombre del medico" required>
+                            <input [(ngModel)]="medico.nombre" name="nombre" type="text" class="form-control" placeholder="Nombre del medico" required>
                         </div>
                     </div>
 
                     <div class= "form-group">
                         <label>Hospital</label>
-                        <select name="" class="form-control" required>
+                        <select [(ngModel)]="medico.hospital" name="hospital" class="form-control" required>
                             <option value="">Seleccione Hospital</option>
+                            <option [value]="hospital._id" *ngFor="let hospital of hospitales">{{hospital.nombre}}</option>
                         </select>
                         
                     </div>
