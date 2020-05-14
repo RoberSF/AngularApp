@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Hospital } from '../../models/hospital.model';
 import { HospitalService } from '../../services/hospital.service';
 import swal from 'sweetalert';
+import { ModalService } from '../../resusableComp/modal-upload/modal.service';
 
 @Component({
   selector: 'app-hospitales',
@@ -13,11 +14,12 @@ export class HospitalesComponent implements OnInit {
 
 
   hospitales: Hospital[] = [];
-  constructor(public hospitalService: HospitalService) { 
+  constructor(public hospitalService: HospitalService, public modalService: ModalService) { 
     this.getHospitales()
   }
 
   ngOnInit() {
+    this.modalService.notificacion.subscribe(() => this.getHospitales());
   }
 
   getHospitales() {
@@ -67,6 +69,9 @@ export class HospitalesComponent implements OnInit {
     this.hospitalService.postHospital(valor).subscribe( () => { this.getHospitales() })
   });
 
+}
+actualizarImagen(hospitalID) {
+  this.modalService.mostrarModal('hospitales', hospitalID)
 }
 
 

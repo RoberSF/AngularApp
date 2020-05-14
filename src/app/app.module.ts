@@ -14,6 +14,7 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule} from '@angular/common/http';
 import { LoginGuardGuard } from './services/login-guard.guard';
 import { PipesModule } from './pipes/pipes.module';
+import { ModalService } from './resusableComp/modal-upload/modal.service';
 
 
 
@@ -37,7 +38,7 @@ import { PipesModule } from './pipes/pipes.module';
     HttpClientModule,
     PipesModule
   ],
-  providers: [SettingsService, LoginGuardGuard],
+  providers: [SettingsService, LoginGuardGuard, ModalService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
