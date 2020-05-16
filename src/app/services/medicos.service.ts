@@ -27,6 +27,15 @@ export class MedicosService {
     }))
   };
 
+  cargarMedico(id: string) {
+
+    let url = URL_SERVICIOS + '/medico/' + id;
+
+    return this.http.get(url).pipe(map( (resp:any) => {
+      return resp.medico;
+    }))
+  };
+
 
 
   searchMedicos(value: string) {

@@ -4,7 +4,7 @@ import { NgForm } from '@angular/forms';
 import { Hospital } from '../../../models/hospital.model';
 import { HospitalService } from '../../../services/hospital.service';
 import { Medico } from 'src/app/models/medico.model';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-medico',
@@ -19,7 +19,17 @@ export class MedicoComponent implements OnInit {
   hospital: Hospital = new Hospital('');
 
   constructor(public medicoService: MedicosService, public hospitalService: HospitalService,
-    public router: Router) { }
+    public router: Router, public activatedRoute: ActivatedRoute) {
+
+      this.activatedRoute.params.subscribe(params => { //Esto es para acceder a los parametros de la url 
+
+        let id = params['id'] // como sabemos que es id? por que en el routing.module pusimos "":id"
+
+        if ( id !== 'nuevo') {
+          this.cargarMedico(id)
+        }
+      })
+     }
 
   ngOnInit() {
     this.hospitalService.getHospitals().subscribe(hospitales => this.hospitales = hospitales)
@@ -34,7 +44,7 @@ guardarMedico(form: NgForm) {
   this.medicoService.saveMedico(this.medico).subscribe( medico => {
     console.log(medico);
     this.medico._id = medico._id
-    this.router.navigate(['/medico', medico._id])
+    this.router.navigate(['/medico/', medico._id])
   })
 }
 
@@ -45,6 +55,13 @@ changeHospital(idHospital) {
     console.log(hospital.hospital);
     this.hospital = hospital.hospital
   });
+}
+
+cargarMedico(id :string) {
+  this.medicoService.cargarMedico(id).subscribe( medico => {
+    this.medico = medico ;
+    this.medico.hospital = medico.hospital._id;
+    this.changeHospital(this.medico.hospital)}) // acordarse que es para cambiar la foto cuando tiene un id 
 }
 
 
