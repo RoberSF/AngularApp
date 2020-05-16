@@ -22,7 +22,6 @@ export class ImagenPipe implements PipeTransform {
 
       case 'usuario':
         url += '/usuarios/' + img;
-        console.log(url)
       break;
 
       case 'medico':
