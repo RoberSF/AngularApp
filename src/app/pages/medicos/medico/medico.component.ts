@@ -47,9 +47,8 @@ guardarMedico(form: NgForm) {
   }
 
   this.medicoService.saveMedico(this.medico).subscribe( medico => {
-    console.log(medico);
-    this.medico._id = medico._id
-    this.router.navigate(['/medico/', medico._id])
+    this.medico._id = medico._id;
+    this.router.navigate(['/medico/', medico.usuario._id])
   })
 }
 

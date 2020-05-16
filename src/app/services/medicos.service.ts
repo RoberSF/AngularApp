@@ -71,10 +71,26 @@ export class MedicosService {
 
     var _url = this.url + '/medico';
 
+
+    if ( medico._id) {
+      // actualizando
+
+      _url += '/' + medico._id;
+
+      return this.http.put( _url, medico, {headers: headers}).pipe(map( (resp:any) => {
+        swal('Médico actualizado');
+        console.log(resp);
+        return resp
+      }))
+
+    } else {
+      // creando
+
     return this.http.post(_url, medico, {headers: headers}).pipe(map( // {nombre} se pone así por que es el unico parametro que está recibiendo
       (resp:any) => {
         swal('Medico creado', 'success');
         return resp.medico;
       }));
+    }
   }
 }
