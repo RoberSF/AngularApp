@@ -56,7 +56,7 @@
             <div class="card-body">
                 <h4 class="card-title">User Photo</h4>
 
-                <img  [src]="medico.img | imagen: 'medico' " class="w-150" *ngIf= "medico._id">
+                <img  (click)="cambiarPhoto()" [src]="medico.img | imagen: 'medico' " class="w-150 pointer" *ngIf= "medico._id">
                 
                 <br><br>
 
