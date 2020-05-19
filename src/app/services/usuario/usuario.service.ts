@@ -16,6 +16,7 @@ export class UsuarioService {
   url = 'http://localhost:4000'
   usuario : Usuario;
   token:string;
+  menu: any = [];
 
   constructor(public http: HttpClient, public uploadService: UploadFileService) {
     this.loadStorage(); // para volver a cargar las variables al darle a reload
@@ -39,7 +40,7 @@ export class UsuarioService {
     let url = this.url + '/login/google';
 
     return this.http.post(url, { token}).pipe(map((response:any) => {
-      this.saveStorage(response.id, response.token, response.usuario);
+      this.saveStorage(response.id, response.token, response.usuario, response.menu);
       return true;
     }))
   }
@@ -55,19 +56,21 @@ export class UsuarioService {
 
     return this.http.post(_url, usuario).pipe(map(
       (response:any) => {
-        this.saveStorage(response.id, response.token, response.usuario);
+        this.saveStorage(response.id, response.token, response.usuario, response.menu);
         return true
       }
     ))
   }
 
-saveStorage(id:string, token:string, usuario: Usuario) {
+saveStorage(id:string, token:string, usuario: Usuario, menu: any) {
   localStorage.setItem('id', id)
   localStorage.setItem('token', token)
   localStorage.setItem('usuario', JSON.stringify(usuario)) // por que viene en la response como un array 
+  localStorage.setItem('menu', JSON.stringify(menu)) // por que viene en la response como un array 
 
   this.usuario = usuario;
   this.token = token;
+  this.menu = menu;
 }
 
 
@@ -79,9 +82,11 @@ loadStorage() { // para que las variables se inicien otra vez al darle a recarga
   if (localStorage.getItem('token')) {
     this.token = localStorage.getItem('token');
     this.usuario = JSON.parse(localStorage.getItem('usuario'))
+    this.menu = JSON.parse(localStorage.getItem('menu'))
   } else {
     this.token = '';
-    this.usuario = null
+    this.usuario = null;
+    this.menu = []
   }
 }
 
@@ -89,8 +94,10 @@ loadStorage() { // para que las variables se inicien otra vez al darle a recarga
 logOut() {
   this.usuario = null;
   this.token = '';
+  this.menu = [];
   localStorage.removeItem('token');
   localStorage.removeItem('usuario');
+  localStorage.removeItem('menu');
   window.location.href = '#/login';
 }
 
@@ -115,7 +122,7 @@ updateUser(usuario: Usuario) {
   return this.http.put(_url, data, {headers: headers}).pipe(map((resp:any) => {
     this.usuario = resp.usuario;
     let usuarioDB: Usuario = resp.usuario;
-    this.saveStorage(usuarioDB._id, this.token, usuarioDB); //por que el storage lo usamos en la app por lo que hay que ponerlo 
+    this.saveStorage(usuarioDB._id, this.token, usuarioDB, this.menu); //por que el storage lo usamos en la app por lo que hay que ponerlo 
     swal('Usuaro Actualizado', usuario.nombre);
 
     return true
@@ -130,7 +137,7 @@ changeImage(file: File, id:string) {
     console.log(resp);
     this.usuario = resp.usuarioActualizado.img;
     swal('Imagen actualizada', this.usuario.nombre)
-    this.saveStorage(id, this.token, this.usuario)
+    this.saveStorage(id, this.token, this.usuario, this.menu)
   }).catch(rej => {
     console.log(rej)
   });
@@ -192,7 +199,7 @@ updateRole(usuario: Usuario) {
     if (usuario._id === this.usuario._id ) { // this.usuario._id es el que está logueado
 
       let usuarioDB: Usuario = resp.usuario;
-      this.saveStorage(usuarioDB._id, this.token, usuarioDB); //por que el storage lo usamos en la app por lo que hay que ponerlo 
+      this.saveStorage(usuarioDB._id, this.token, usuarioDB, this.menu); //por que el storage lo usamos en la app por lo que hay que ponerlo 
     }
     swal('Usuaro Actualizado', usuario.nombre);
 
