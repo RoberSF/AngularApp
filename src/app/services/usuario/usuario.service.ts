@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { Usuario } from '../../models/usuario.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import swal from 'sweetalert';
-import { map, filter, switchMap } from 'rxjs/operators';
+import { map, filter, switchMap, catchError } from 'rxjs/operators';
 import { URL_SERVICIOS } from 'src/app/config/config';
 import { UploadFileService } from '../upload-file.service';
-
+import {Observable, throwError} from 'rxjs';
 
 
 @Injectable({
@@ -31,6 +31,11 @@ export class UsuarioService {
       (resp:any) => {
         swal('Usuario creado', usuario.email, 'success');
         return resp.usuario;
+      }),
+      catchError(err => {
+        console.log(err.status);
+        swal(err.error.errors.message, 'error')
+        return throwError(err.error.mensaje);
       }));
   }
 
@@ -54,13 +59,19 @@ export class UsuarioService {
       localStorage.removeItem('email')
     }
 
-    return this.http.post(_url, usuario).pipe(map(
-      (response:any) => {
+    return this.http.post(_url, usuario).pipe(
+      map((response:any) => {
         this.saveStorage(response.id, response.token, response.usuario, response.menu);
-        return true
-      }
-    ))
-  }
+        return true;
+      }),
+
+      catchError(err => {
+        console.log(err.status);
+        swal(err.error.mensaje)
+        return throwError(err.error.mensaje);
+      })
+      
+    )}
 
 saveStorage(id:string, token:string, usuario: Usuario, menu: any) {
   localStorage.setItem('id', id)
