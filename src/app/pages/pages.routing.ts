@@ -13,6 +13,7 @@ import { HospitalesComponent } from './hospitales/hospitales.component';
 import { MedicosComponent } from './medicos/medicos.component';
 import { MedicoComponent } from './medicos/medico/medico.component';
 import { SearchingComponent } from './searching/searching.component';
+import { AdminGuard } from '../services/admin.guard';
 
 
 
@@ -35,7 +36,12 @@ const pagesRoutes: Routes = [
             {path:'buscar/:value', component: SearchingComponent,  data: {title: 'BUSCAR'}},
 
 
-            {path:'usuarios', component: UsuariosComponent,  data: {title: 'USUARIOS'}},
+            {
+                path:'usuarios', 
+                component: UsuariosComponent,  
+                data: {title: 'USUARIOS'},
+                canActivate: [AdminGuard]
+            },
             {path:'hospitales', component: HospitalesComponent,  data: {title: 'HOSPITALES'}},
             {path:'medicos', component: MedicosComponent,  data: {title: 'MEDICOS'}},
             {path:'medico/:id', component: MedicoComponent,  data: {title: 'MEDICO'}},
