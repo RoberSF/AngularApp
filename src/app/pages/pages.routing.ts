@@ -12,6 +12,7 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
 import { HospitalesComponent } from './hospitales/hospitales.component';
 import { MedicosComponent } from './medicos/medicos.component';
 import { MedicoComponent } from './medicos/medico/medico.component';
+import { SearchingComponent } from './searching/searching.component';
 
 
 
@@ -31,6 +32,7 @@ const pagesRoutes: Routes = [
             {path:'rxjs', component: RxjsComponent,  data: {title: 'EXAMPLE OBSERVABLE'}},
             {path:'account-settings', component: AccountSettingsComponent,  data: {title: 'SETTINGS'}},
             {path:'profile', component: ProfileComponent,  data: {title: 'PERFIL DE USUARIO'}},
+            {path:'buscar/:value', component: SearchingComponent,  data: {title: 'BUSCAR'}},
 
 
             {path:'usuarios', component: UsuariosComponent,  data: {title: 'USUARIOS'}},
