@@ -6,6 +6,7 @@ import { map, filter, switchMap, catchError } from 'rxjs/operators';
 import { URL_SERVICIOS } from 'src/app/config/config';
 import { UploadFileService } from '../upload-file.service';
 import {Observable, throwError} from 'rxjs';
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -18,9 +19,32 @@ export class UsuarioService {
   token:string;
   menu: any = [];
 
-  constructor(public http: HttpClient, public uploadService: UploadFileService) {
+  constructor(public http: HttpClient, public uploadService: UploadFileService, 
+    public route: Router) {
     this.loadStorage(); // para volver a cargar las variables al darle a reload
    }
+
+  reloadToken() {
+    var headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+       Authorization: this.token
+    });
+
+    let url = URL_SERVICIOS + '/login/renuevatoken';
+
+    return this.http.get(url, {headers: headers} ).pipe(
+      map( (resp:any) => {
+        this.token = resp.token;
+        localStorage.setItem('token', this.token);
+        return true
+      }),
+      catchError(err => {
+        swal('no fue posible renovar token',err.error.mensaje);
+        this.route.navigate(['/login']);
+        return throwError(err.error.mensaje);
+      })
+    )
+  }
 
 
 
@@ -41,6 +65,8 @@ export class UsuarioService {
 
 
 
+
+
   loginGoogle(token: string) {
     let url = this.url + '/login/google';
 
@@ -49,6 +75,9 @@ export class UsuarioService {
       return true;
     }))
   }
+
+
+
 
   login(usuario: Usuario, remember:boolean = false) {
     var _url = this.url + '/login';
@@ -73,6 +102,10 @@ export class UsuarioService {
       
     )}
 
+
+
+
+
 saveStorage(id:string, token:string, usuario: Usuario, menu: any) {
   localStorage.setItem('id', id)
   localStorage.setItem('token', token)
@@ -85,9 +118,17 @@ saveStorage(id:string, token:string, usuario: Usuario, menu: any) {
 }
 
 
+
+
+
+
 IsLogged() {
   return (this.token.length > 5? true : false) // esto lo uso en guard , para poder proteger las rutas
 }
+
+
+
+
 
 loadStorage() { // para que las variables se inicien otra vez al darle a recargar 
   if (localStorage.getItem('token')) {
@@ -102,6 +143,9 @@ loadStorage() { // para que las variables se inicien otra vez al darle a recarga
 }
 
 
+
+
+
 logOut() {
   this.usuario = null;
   this.token = '';
@@ -111,6 +155,10 @@ logOut() {
   localStorage.removeItem('menu');
   window.location.href = '#/login';
 }
+
+
+
+
 
 
 updateUser(usuario: Usuario) {
@@ -143,6 +191,10 @@ updateUser(usuario: Usuario) {
 
 
 
+
+
+
+
 changeImage(file: File, id:string) {
   this.uploadService.uploadFile(file, 'usuarios', id).then( (resp:any) => { // 'usuarios es por la ruta del back
     console.log(resp);
@@ -155,6 +207,10 @@ changeImage(file: File, id:string) {
 }
 
 
+
+
+
+
 getUsers(since:number) {
 
   let url = URL_SERVICIOS + '/usuario?since=' + since;
@@ -163,12 +219,20 @@ getUsers(since:number) {
 };
 
 
+
+
+
+
 searchUser(value:string) {
 
   let url = URL_SERVICIOS + '/busqueda/coleccion/usuarios/' + value;
 
   return this.http.get(url);
 };
+
+
+
+
 
 
 deleteUser(id: string) {
@@ -184,6 +248,10 @@ deleteUser(id: string) {
 
   return this.http.delete(url, {headers: headers} )
 };
+
+
+
+
 
 
 updateRole(usuario: Usuario) {
