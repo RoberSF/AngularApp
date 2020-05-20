@@ -65,7 +65,7 @@ export class ProfileComponent implements OnInit {
 
   }
 
-  changeImage(archivo: File, id:string) {
+  changeImage() {
 
     // podría disparar la subida desde aquí pero mejor hacerla desde el servicio por que allí tengo el id
 

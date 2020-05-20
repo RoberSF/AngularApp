@@ -1,4 +1,4 @@
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, CanActivate } from '@angular/router';
 import { PagesComponent } from './pages.component';
 import { DashboadComponent } from './dashboad/dashboad.component';
 import { ProgressComponent } from './progress/progress.component';
@@ -14,6 +14,7 @@ import { MedicosComponent } from './medicos/medicos.component';
 import { MedicoComponent } from './medicos/medico/medico.component';
 import { SearchingComponent } from './searching/searching.component';
 import { AdminGuard } from '../services/admin.guard';
+import { VerificatokenGuard } from '../services/verificatoken.guard';
 
 
 
@@ -26,7 +27,13 @@ const pagesRoutes: Routes = [
         component: PagesComponent,
         canActivate: [LoginGuardGuard], // puedo usarlo de manra global o componente a componente
         children: [
-            {path:'dashboard', component: DashboadComponent, data: {title: 'DASHBOARD'}},
+            {
+                path:'dashboard', 
+                component: DashboadComponent, 
+                canActivate: [VerificatokenGuard],
+                data: {title: 'DASHBOARD'},
+                
+            },
             {path:'progress', component: ProgressComponent,  data: {title: 'PROGRESS'}},
             {path:'chart1', component: Chart1Component,  data: {title: 'EXAMPLE CHART'}},
             {path:'promesas', component: PromesasComponent,  data: {title: 'PROMESAS'}},
