@@ -1,16 +1,11 @@
-
-
 <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-body">
                 <div class="progress">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" 
-                        [attr.aria-valuenow]="porcentaje" aria-valuenow="50" 
-                        aria-valuemin="0" aria-valuemax="100"
-                        [style.width]="porcentaje + '%'">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" [attr.aria-valuenow]="porcentaje" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" [style.width]="porcentaje + '%'">
                         <!-- estas llaves dice que es algo que va a manejar angular, teniendo la propiedad en el .ts -->
-                         <!-- en el caso de arriba no podemos hacerlo como abajo por que aria-valuenow es una attr de bootstrap entonces angular
+                        <!-- en el caso de arriba no podemos hacerlo como abajo por que aria-valuenow es una attr de bootstrap entonces angular
                         no puede manejar directamente con ngmodel -->
                     </div>
                 </div>
@@ -23,21 +18,21 @@
     <div class="col-6">
         <div class="card">
             <div class="card-body">
-               <!-- <app-incrementador (changeValue)="changeValue($event)" leyenda="Progress Azul" [porcentaje]="porcentaje"></app-incrementador> -->
-               <!-- el @output puedo hacerlo como asignación directa en vez de una función click -->
-               <app-incrementador (changedNameOutput)="porcentaje = $event" leyenda="Progress Azul" [porcentaje]="porcentaje"></app-incrementador>
+                <!-- <app-incrementador (changeValue)="changeValue($event)" leyenda="Progress Azul" [porcentaje]="porcentaje"></app-incrementador> -->
+                <!-- el @output puedo hacerlo como asignación directa en vez de una función click -->
+                <app-incrementador (changedNameOutput)="porcentaje = $event" leyenda="Progress Azul" [porcentaje]="porcentaje"></app-incrementador>
 
             </div>
         </div>
     </div>
 
 
-    <div class="col-6">
+    <!-- <div class="col-6">
         <div class="card">
             <div class="card-body">
                 Texto 2
             </div>
         </div>
-    </div>
+    </div> -->
 
 </div>

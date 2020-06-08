@@ -7,22 +7,26 @@
                 <li class="user-profile">
                     <a class="has-arrow waves-effect waves-dark" aria-expanded="false"><img [src]="usuario.img | imagen" alt="user" /><span class="hide-menu">{{usuario.nombre}}</span></a>
                     <ul aria-expanded="false" class="collapse">
-                        <li routerLinkActive="active">  <a routerLink="/profile">My Profile </a></li>
+                        <li routerLinkActive="active"> <a routerLink="/profile">My Profile </a></li>
                         <li><a href="javascript:void()">My Balance</a></li>
                         <li><a href="javascript:void()">Inbox</a></li>
-                        <li><a routerLinkActive="active" routerLink="/account-settings" routerLinkActive="router-link-active" >Account Setting</a></li>
+                        <li><a routerLinkActive="active" routerLink="/account-settings" routerLinkActive="router-link-active">Account Setting</a></li>
                         <li><a (click)="logOut()" class="pointer">Logout</a></li>
                     </ul>
                 </li>
                 <li class="nav-devider"></li>
                 <li class="nav-small-cap">PERSONAL</li>
 
-                <li *ngFor= "let menu of sidebarService.menu"> <a class="has-arrow waves-effect waves-dark" aria-expanded="false"><i [class]="menu.icon"></i><span class="hide-menu">{{menu.title}} <span class="label label-rouded label-themecolor pull-right">{{menu.submenu.length}}</span></span></a>
+                <!-- ************************************************************************************************************************************************
+                    Recoge directamente del servicio una propiedad, sin guardarla como propiedad de clase
+                ************************************************************************************************************************************************ -->
+
+                <li *ngFor="let menu of sidebarService.menu"> <a class="has-arrow waves-effect waves-dark" aria-expanded="false"><i [class]="menu.icon"></i><span class="hide-menu">{{menu.title}} <span class="label label-rouded label-themecolor pull-right">{{menu.submenu.length}}</span></span></a>
                     <ul aria-expanded="false" class="collapse">
-                        <li *ngFor= "let submenu of menu.submenu"><a routerLinkActive="active" [routerLink]="[submenu.url]">{{submenu.title}} </a></li>
+                        <li *ngFor="let submenu of menu.submenu"><a routerLinkActive="active" [routerLink]="[submenu.url]">{{submenu.title}} </a></li>
                     </ul>
                 </li>
-               
+
 
             </ul>
         </nav>
@@ -30,4 +34,3 @@
     </div>
     <!-- End Sidebar scroll-->
 </aside>
-

@@ -18,16 +18,14 @@ export class ProfileComponent implements OnInit {
   imagenTemp: any;
 
   constructor(public usuarioService: UsuarioService) {
-    this.usuario = this.usuarioService.usuario; // ya tendría los datos del usuario
+    this.usuario = this.usuarioService.usuario; // ya tendría los datos del usuario guardados en el servicio
    }
 
   ngOnInit() {
   }
 
   save(usuario: Usuario){
-
-    console.log(usuario)
-
+    
     this.usuario.nombre = usuario.nombre;
 
     if(!this.usuario.google) {

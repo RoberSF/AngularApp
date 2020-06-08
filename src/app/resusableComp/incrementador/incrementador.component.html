@@ -1,14 +1,16 @@
 <h4>{{leyenda}} -- {{porcentaje}}</h4>
 <div class="input-group">
     <div class="input-group-btn" id="button-addon3">
-      <button (click)="clickMinus()" class="btn btn-primary" type="button">
+        <button (click)="clickMinus()" class="btn btn-primary" type="button">
           <i class="mdi mdi-minus"></i>
       </button>
-      
+
     </div>
-    <input #txtPorcentaje name="porcentaje" [(ngModel)]="porcentaje" (ngModelChange)="onChange($event)"  type="number" class="form-control" min="1" max="100" aria-label="Example text with two button addons" aria-describedby="button-addon3">
-                <!-- para ng model hay que importar en el modulo el formsModule -->
+    <input #txtPorcentaje name="porcentaje" [(ngModel)]="porcentaje" (ngModelChange)="onChange($event)" type="number" class="form-control" min="1" max="100" aria-label="Example text with two button addons" aria-describedby="button-addon3">
+    <!-- para ng model hay que importar en el modulo el formsModule -->
+
+
     <button (click)="clickPlus()" class="btn btn-primary" type="button">
         <i class="mdi mdi-plus"></i>
     </button>
-  </div>
+</div>
