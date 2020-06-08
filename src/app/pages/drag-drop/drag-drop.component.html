@@ -1,0 +1,13 @@
+<!-- <div class="caja" cdkDrag>
+    Drag me
+</div> -->
+
+
+
+<ul class="example-list" cdkDropList (cdkDropListDropped)="drop($event)">
+
+    <li class="example-box" *ngFor="let pais of paises" cdkDrag>
+        {{ pais.name }}
+    </li>
+
+</ul>

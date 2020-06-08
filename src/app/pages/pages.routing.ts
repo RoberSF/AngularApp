@@ -15,6 +15,10 @@ import { MedicoComponent } from './medicos/medico/medico.component';
 import { SearchingComponent } from './searching/searching.component';
 import { AdminGuard } from '../services/admin.guard';
 import { VerificatokenGuard } from '../services/verificatoken.guard';
+import { DragDropComponent } from './drag-drop/drag-drop.component';
+
+
+
 
 
 
@@ -36,8 +40,9 @@ const pagesRoutes: Routes = [
             },
             {path:'progress', component: ProgressComponent,  data: {title: 'PROGRESS'}},
             {path:'chart1', component: Chart1Component,  data: {title: 'EXAMPLE CHART'}},
-            {path:'promesas', component: PromesasComponent,  data: {title: 'PROMESAS'}},
-            {path:'rxjs', component: RxjsComponent,  data: {title: 'EXAMPLE OBSERVABLE'}},
+            // {path:'promesas', component: PromesasComponent,  data: {title: 'PROMESAS'}},
+            // {path:'rxjs', component: RxjsComponent,  data: {title: 'EXAMPLE OBSERVABLE'}},
+            {path:'dragDrop', component: DragDropComponent,  data: {title: 'DRAG'}},
             {path:'account-settings', component: AccountSettingsComponent,  data: {title: 'SETTINGS'}},
             {path:'profile', component: ProfileComponent,  data: {title: 'PERFIL DE USUARIO'}},
             {path:'buscar/:value', component: SearchingComponent,  data: {title: 'BUSCAR'}},

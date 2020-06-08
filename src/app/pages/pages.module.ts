@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { DashboadComponent } from '../pages/dashboad/dashboad.component';
+import { DashboadComponent, eventInfoPopUp } from '../pages/dashboad/dashboad.component';
 import { ProgressComponent } from '../pages/progress/progress.component';
 import { Chart1Component } from '../pages/chart1/chart1.component';
 import { PagesComponent } from '../pages/pages.component';
@@ -22,6 +22,12 @@ import { HospitalService } from '../services/hospital.service';
 import { MedicosComponent } from './medicos/medicos.component';
 import { MedicoComponent } from './medicos/medico/medico.component';
 import { SearchingComponent } from './searching/searching.component';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DragDropComponent } from './drag-drop/drag-drop.component';
+import {DragDropModule} from '@angular/cdk/drag-drop'
 
 @NgModule({
   declarations: [
@@ -40,7 +46,9 @@ import { SearchingComponent } from './searching/searching.component';
     HospitalesComponent,
     MedicosComponent,
     MedicoComponent,
-    SearchingComponent
+    SearchingComponent,
+    eventInfoPopUp,
+    DragDropComponent
 
   ],
   exports: [
@@ -57,8 +65,16 @@ import { SearchingComponent } from './searching/searching.component';
     ChartsModule,
     CommonModule,
     PipesModule,
+    CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
+    BrowserAnimationsModule,
+    MatDialogModule,
+    DragDropModule
   ],
   providers: [HospitalService],
+
+  entryComponents: [
+    eventInfoPopUp
+  ],
 
 })
 export class PagesModule { }

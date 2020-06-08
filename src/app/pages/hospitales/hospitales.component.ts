@@ -14,8 +14,8 @@ export class HospitalesComponent implements OnInit {
 
 
   hospitales: Hospital[] = [];
-  constructor(public hospitalService: HospitalService, public modalService: ModalService) { 
-    this.getHospitales()
+  constructor(public hospitalService: HospitalService, public modalService: ModalService) {
+    this.getHospitales();
   }
 
   ngOnInit() {
@@ -34,44 +34,44 @@ export class HospitalesComponent implements OnInit {
 
   deleteHospital(hospital: Hospital) {
     this.hospitalService.deleteHospital(hospital._id).subscribe( () => this.getHospitales());
-  };
+  }
 
   searchHospital(value: string) {
 
     if ( value.length <= 0 ) {
-      this.getHospitales() 
+      this.getHospitales();
       return;
     }
 
-    this.hospitalService.searchHospital(value).subscribe( (hospitales:any) => {
-      this.hospitales = hospitales.hospitales
-      console.log(this.hospitales)
-    })
-  };
+    this.hospitalService.searchHospital(value).subscribe( (hospitales: any) => {
+      this.hospitales = hospitales.hospitales;
+      console.log(this.hospitales);
+    });
+  }
 
   crearHospital() {
 
     swal({
-      title:'Crear Hospital',
+      title: 'Crear Hospital',
       text: 'Ingrese el nombre del Hopsital',
       content: {
-        element: "input"
+        element: 'input'
      },
       icon: 'info',
-      buttons: true,
+      buttons: [true],
       dangerMode: true
-    }).then((valor:string) => { 
-      
+    }).then((valor: string) => {
+
      if (!valor || valor.length === 0 ) {
       return;
     }
 
-    this.hospitalService.postHospital(valor).subscribe( () => { this.getHospitales() })
+     this.hospitalService.postHospital(valor).subscribe( () => { this.getHospitales(); });
   });
 
 }
 actualizarImagen(hospitalID) {
-  this.modalService.mostrarModal('hospitales', hospitalID)
+  this.modalService.mostrarModal('hospitales', hospitalID);
 }
 
 
