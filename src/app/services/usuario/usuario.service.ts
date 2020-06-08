@@ -214,6 +214,7 @@ changeImage(file: File, id:string) {
 getUsers(since:number) {
 
   let url = URL_SERVICIOS + '/usuario?since=' + since;
+  console.log(url)
 
   return this.http.get(url);
 };

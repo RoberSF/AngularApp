@@ -30,7 +30,6 @@ export class UsuariosComponent implements OnInit {
 
   mostrarModal(id:string) {
       this.modalService.mostrarModal('usuarios',id);
-      // console.log(id)
   }
 
 
@@ -43,7 +42,6 @@ export class UsuariosComponent implements OnInit {
       this.totalRegisters = data.total;
       this.usuarios = data.usuarios;
       this.loading = false;
-      // console.log(data)
     });
   };
 
@@ -63,7 +61,6 @@ export class UsuariosComponent implements OnInit {
   };
 
   searchUser(value: string) {
-    console.log(value);
 
     this.loading = true;
 
@@ -108,7 +105,6 @@ export class UsuariosComponent implements OnInit {
 
   saveUser(usuario: Usuario) {
     this.usuarioService.updateRole(usuario).subscribe(resp => {
-      console.log('ok')
     });
   }
 

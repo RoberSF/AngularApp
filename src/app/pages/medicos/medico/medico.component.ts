@@ -33,10 +33,10 @@ export class MedicoComponent implements OnInit {
      }
 
   ngOnInit() {
-    this.hospitalService.getHospitals().subscribe(hospitales => this.hospitales = hospitales);
+    this.hospitalService.getHospitals().subscribe(hospitales => {this.hospitales = hospitales, console.log(this.hospitales)});
 
     this.modalService.notificacion.subscribe( resp => {
-      this.medico.img = resp.medico.img
+      this.medico.img = resp.medico.img;
     })
   }
 
@@ -56,7 +56,6 @@ changeHospital(idHospital) {
 
   this.hospitalService.getHospital( idHospital )
   .subscribe( (hospital:any) => {
-    console.log(hospital.hospital);
     this.hospital = hospital.hospital
   });
 }

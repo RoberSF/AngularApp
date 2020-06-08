@@ -45,7 +45,6 @@ export class MedicosComponent implements OnInit {
 
     this.medicoService.searchMedicos(value).subscribe( (medicos:any) => {
       this.medicos = medicos.tabla
-      console.log(this.medicos)
     })
   };
 
