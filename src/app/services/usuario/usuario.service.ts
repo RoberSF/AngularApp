@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
 export class UsuarioService {
 
   url = 'http://localhost:4000'
-  usuario : Usuario;
+  usuario: Usuario;
   token:string;
   menu: any = [];
 
@@ -58,7 +58,7 @@ export class UsuarioService {
       }),
       catchError(err => {
         console.log(err.status);
-        swal(err.error.errors.message, 'error')
+        swal(err.error.errors.message, 'error');
         return throwError(err.error.mensaje);
       }));
   }
@@ -286,6 +286,8 @@ updateRole(usuario: Usuario) {
   }));
 
 };
+
+
 
 
 }

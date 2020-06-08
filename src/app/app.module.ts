@@ -17,8 +17,6 @@ import { PipesModule } from './pipes/pipes.module';
 import { ModalService } from './resusableComp/modal-upload/modal.service';
 
 
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +34,8 @@ import { ModalService } from './resusableComp/modal-upload/modal.service';
     ReactiveFormsModule,
     RouterModule,
     HttpClientModule,
-    PipesModule
+    PipesModule,
+    
   ],
   providers: [SettingsService, LoginGuardGuard, ModalService],
   bootstrap: [AppComponent]
