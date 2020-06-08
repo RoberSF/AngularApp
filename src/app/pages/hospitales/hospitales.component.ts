@@ -44,7 +44,7 @@ export class HospitalesComponent implements OnInit {
     }
 
     this.hospitalService.searchHospital(value).subscribe( (hospitales: any) => {
-      this.hospitales = hospitales.hospitales;
+      this.hospitales = hospitales.tabla;
       console.log(this.hospitales);
     });
   }

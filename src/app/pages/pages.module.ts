@@ -10,8 +10,6 @@ import { IncrementadorComponent } from '../resusableComp/incrementador/increment
 import { ChartsModule } from 'ng2-charts';
 import { ChartDoughnutComponent } from '../resusableComp/chart-doughnut/chart-doughnut.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
-import { PromesasComponent } from './promesas/promesas.component';
-import { RxjsComponent } from './rxjs/rxjs.component';
 import { PipesModule } from '../pipes/pipes.module';
 import { ProfileComponent } from './profile/profile.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
@@ -38,8 +36,6 @@ import {DragDropModule} from '@angular/cdk/drag-drop'
     IncrementadorComponent,
     ChartDoughnutComponent,
     AccountSettingsComponent,
-    PromesasComponent,
-    RxjsComponent,
     ProfileComponent,
     UsuariosComponent,
     ModalUploadComponent,

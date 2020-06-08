@@ -9,7 +9,7 @@ import { SettingsService } from './services/settings.service';
 export class AppComponent {
   title = 'AngularAvanzado';
   constructor ( public SettingsService: SettingsService) {
-    //solo con inyectar el servicio ya cargael constructor de settingsService y como es llamado en accountSettings
+    //solo con inyectar el servicio ya carga el constructor de settingsService y como es llamado en accountSettings
     // ya se carga
   }
 }

@@ -2,9 +2,9 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-              
+
                 <input #input (keyup)="searchMedico(input.value)" type="text" class="form-control" placeholder="Search Medico...">
-                
+
             </div>
         </div>
     </div>
@@ -14,13 +14,13 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-              
+
                 <div class="text-right">
                     <button [routerLink]="['/medico', 'nuevo']" type="button" class="btn waves-effect waves-light btn btn-rounded btn primary">
                        <i class="fa fa-plus">Add Médico</i> 
                     </button>
                 </div>
-                
+
 
                 <h3 class="card-title"> Usuarios Registrados (<small>{{medicoService.totalMedicos}}</small>)</h3>
 
@@ -28,14 +28,14 @@
                     <thead>
                         <tr>
                             <th>Photo</th>
-                            <th>Medico</th>
                             <th>Hospital</th>
+                            <th>Medico</th>
                             <th></th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        <tr *ngFor= "let medico of medicos">
+                        <tr *ngFor="let medico of medicos">
                             <td>
                                 <img [src]="medico.img  | imagen: 'medico'" class="img-50 img-circle">
                             </td>

@@ -74,8 +74,7 @@ export class UsuariosComponent implements OnInit {
     this.usuarioService.searchUser(value)
       .subscribe( (usuarios:any) => {
 
-        console.log(usuarios.usuarios);
-        this.usuarios = usuarios.usuarios;
+        this.usuarios = usuarios.tabla;
         this.loading = false;
     });
   };

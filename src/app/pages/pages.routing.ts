@@ -4,8 +4,6 @@ import { DashboadComponent } from './dashboad/dashboad.component';
 import { ProgressComponent } from './progress/progress.component';
 import { Chart1Component } from './chart1/chart1.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
-import { PromesasComponent } from './promesas/promesas.component';
-import { RxjsComponent } from './rxjs/rxjs.component';
 import { LoginGuardGuard } from '../services/login-guard.guard';
 import { ProfileComponent } from './profile/profile.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
@@ -38,10 +36,9 @@ const pagesRoutes: Routes = [
                 data: {title: 'DASHBOARD'},
                 
             },
-            {path:'progress', component: ProgressComponent,  data: {title: 'PROGRESS'}},
+            {path:'progress', component: ProgressComponent,  data: {title: 'PROGRESS'}}, // que es ésta data? 
             {path:'chart1', component: Chart1Component,  data: {title: 'EXAMPLE CHART'}},
-            // {path:'promesas', component: PromesasComponent,  data: {title: 'PROMESAS'}},
-            // {path:'rxjs', component: RxjsComponent,  data: {title: 'EXAMPLE OBSERVABLE'}},
+
             {path:'dragDrop', component: DragDropComponent,  data: {title: 'DRAG'}},
             {path:'account-settings', component: AccountSettingsComponent,  data: {title: 'SETTINGS'}},
             {path:'profile', component: ProfileComponent,  data: {title: 'PERFIL DE USUARIO'}},
