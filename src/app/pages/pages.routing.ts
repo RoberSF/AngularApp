@@ -14,6 +14,7 @@ import { SearchingComponent } from './searching/searching.component';
 import { AdminGuard } from '../services/admin.guard';
 import { VerificatokenGuard } from '../services/verificatoken.guard';
 import { DragDropComponent } from './drag-drop/drag-drop.component';
+import { PhotoClickableComponent } from './photo-clickable/photo-clickable.component';
 
 
 
@@ -38,10 +39,10 @@ const pagesRoutes: Routes = [
             },
             {path:'progress', component: ProgressComponent,  data: {title: 'PROGRESS'}}, // que es ésta data? 
             {path:'chart1', component: Chart1Component,  data: {title: 'EXAMPLE CHART'}},
-
             {path:'dragDrop', component: DragDropComponent,  data: {title: 'DRAG'}},
             {path:'account-settings', component: AccountSettingsComponent,  data: {title: 'SETTINGS'}},
             {path:'profile', component: ProfileComponent,  data: {title: 'PERFIL DE USUARIO'}},
+            {path:'PhotoClick', component: PhotoClickableComponent,  data: {title: 'PHOTO'}},
             {path:'buscar/:value', component: SearchingComponent,  data: {title: 'BUSCAR'}},
 
 

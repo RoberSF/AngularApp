@@ -25,7 +25,8 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DragDropComponent } from './drag-drop/drag-drop.component';
-import {DragDropModule} from '@angular/cdk/drag-drop'
+import {DragDropModule} from '@angular/cdk/drag-drop';
+import { PhotoClickableComponent } from './photo-clickable/photo-clickable.component'
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import {DragDropModule} from '@angular/cdk/drag-drop'
     MedicoComponent,
     SearchingComponent,
     eventInfoPopUp,
-    DragDropComponent
+    DragDropComponent,
+    PhotoClickableComponent
 
   ],
   exports: [
