@@ -53,7 +53,6 @@ form: FormGroup;
     if ( !this.form.value.conditions ) {
 
       swal("Important", "You must click the conditions!", "warning");
-      alert('Debe seleccionar las condiciones')
     }
 
     var usuario = new Usuario(
