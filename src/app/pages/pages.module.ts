@@ -32,6 +32,7 @@ import { PhotoClickableComponent } from './photo-clickable/photo-clickable.compo
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import localeEs from '@angular/common/locales/es';
+import { ModalDateComponent } from './dashboad/modal-date/modal-date.component';
 
 registerLocaleData(localeFr);
 registerLocaleData(localeEs, 'es');
@@ -54,7 +55,8 @@ registerLocaleData(localeEs, 'es');
     SearchingComponent,
     eventInfoPopUp,
     DragDropComponent,
-    PhotoClickableComponent
+    PhotoClickableComponent,
+    ModalDateComponent
 
   ],
   exports: [

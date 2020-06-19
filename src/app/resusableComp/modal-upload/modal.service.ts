@@ -15,7 +15,18 @@ export class ModalService {
 
   oculto: string = 'oculto';
 
+  ocultoCalendar: string = 'oculto'
+
   notificacion = new EventEmitter<any>();
+
+  calendarDate;
+
+
+  nombre;
+  date;
+  onlyDate;
+  hour;
+  
 
   constructor() { 
     // console.log('Modal upload ready')
@@ -24,9 +35,14 @@ export class ModalService {
 
 
   ocultarModal() {
+    
     this.oculto = 'oculto';
     this.id = null ;
     this.tipo = null;
+  }
+  
+  ocultarModalCalendar() {
+    this.ocultoCalendar = 'oculto'
   }
 
   mostrarModal( tipo:string, id: string ) {
@@ -35,5 +51,13 @@ export class ModalService {
     this.tipo = tipo;
   }
 
+  mostrarModalCalendar(date) {
+    this.calendarDate = date; 
+    this.ocultoCalendar = '';
+  }
+
+  saveCita() {
+    console.log(this.calendarDate)
+  }
 
 }
