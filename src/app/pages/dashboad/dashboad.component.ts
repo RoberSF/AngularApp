@@ -1,8 +1,12 @@
-import { Component, OnInit, ViewChild, TemplateRef, Inject } from '@angular/core';
-import { CalendarEvent, CalendarEventAction, CalendarView, DAYS_OF_WEEK, CalendarEventTimesChangedEvent } from 'angular-calendar';
+import { Component, OnInit, ViewChild, TemplateRef, Inject, ChangeDetectionStrategy, ViewEncapsulation, } from '@angular/core';
+import { CalendarEvent, CalendarEventAction, 
+          CalendarView, DAYS_OF_WEEK, CalendarEventTimesChangedEvent,
+           CalendarMonthViewBeforeRenderEvent, CalendarWeekViewBeforeRenderEvent,
+            CalendarDayViewBeforeRenderEvent, CalendarDateFormatter} from 'angular-calendar';
 import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours} from 'date-fns';
 import {MAT_DIALOG_DATA, MatDialogRef,MatDialog} from '@angular/material/dialog';
 import { Subject } from 'rxjs';
+import { CustomDateFormatter } from './custom-date-formatter.provider';
 
 
 const colors: any = {
@@ -22,8 +26,15 @@ const colors: any = {
 
 @Component({
   selector: 'app-dashboad',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './dashboad.component.html',
-  styleUrls: ['./dashboad.component.scss']
+  styleUrls: ['./dashboad.component.scss'],
+  providers: [
+    {
+      provide: CalendarDateFormatter,
+      useClass: CustomDateFormatter,
+    },
+  ]
 })
 export class DashboadComponent implements OnInit {
 
@@ -33,10 +44,14 @@ export class DashboadComponent implements OnInit {
   viewDate: Date = new Date();
   view: CalendarView = CalendarView.Month;
   CalendarView = CalendarView;
+  locale: string = 'es';
   clickedDate: Date;
   clickedColumn: number;
   eventsArray;
-  activeDayIsOpen = true;
+  activeDayIsOpen = false;
+  // exclude weekends
+  excludeDays: number[] = [0, 6];
+  weekStartsOn = DAYS_OF_WEEK.SUNDAY;
   modalData: {
     action: string;
     event: CalendarEvent;
@@ -50,6 +65,9 @@ export class DashboadComponent implements OnInit {
       },
     },
   ];
+
+
+
 
   events: CalendarEvent[] = [
     {
@@ -66,6 +84,46 @@ export class DashboadComponent implements OnInit {
       draggable: true,
     },
   ];
+
+  //****************************************************************************************************** */
+
+  beforeMonthViewRender(renderEvent: CalendarMonthViewBeforeRenderEvent): void {
+    renderEvent.body.forEach((day) => {
+      const dayOfMonth = day.date.getDate();
+      if (dayOfMonth > 5 && dayOfMonth < 10 && day.inMonth) {
+        day.cssClass = 'bg-pink';
+      }
+    });
+  }
+
+  beforeWeekViewRender(renderEvent: CalendarWeekViewBeforeRenderEvent) {
+    renderEvent.hourColumns.forEach((hourColumn) => {
+      hourColumn.hours.forEach((hour) => {
+        hour.segments.forEach((segment) => {
+          if (
+            segment.date.getHours() >= 2 &&
+            segment.date.getHours() <= 5 &&
+            segment.date.getDay() === 2
+          ) {
+            segment.cssClass = 'bg-pink';
+          }
+        });
+      });
+    });
+  }
+
+  beforeDayViewRender(renderEvent: CalendarDayViewBeforeRenderEvent) {
+    renderEvent.hourColumns.forEach((hourColumn) => {
+      hourColumn.hours.forEach((hour) => {
+        hour.segments.forEach((segment) => {
+          if (segment.date.getHours() >= 2 && segment.date.getHours() <= 5) {
+            segment.cssClass = 'bg-pink';
+          }
+        });
+      });
+    });
+  }
+
 
 
   addEvent(): void {
@@ -103,6 +161,17 @@ dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     this.viewDate = date;
   }
 };
+
+dateClickedF(event) {
+  console.log(event);
+  this.clickedDate = event;
+  alert(event)
+}
+
+clickedColumnF(event) {
+  console.log(event);
+  this.clickedColumn = event
+}
 
 // *************************************************************************************************
 //       Muestra la info del evento en consola si le hago click al evento

@@ -28,6 +28,14 @@ import { DragDropComponent } from './drag-drop/drag-drop.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { PhotoClickableComponent } from './photo-clickable/photo-clickable.component'
 
+
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+import localeEs from '@angular/common/locales/es';
+
+registerLocaleData(localeFr);
+registerLocaleData(localeEs, 'es');
+
 @NgModule({
   declarations: [
     DashboadComponent,
