@@ -42,6 +42,7 @@
   <br>
 
 <div [ngSwitch]="view">
+    
     <mwl-calendar-month-view  
     (beforeViewRender)="beforeMonthViewRender($event)"  
     (columnHeaderClicked)="clickedColumnF($event.isoDayNumber)"
@@ -162,3 +163,5 @@
     </button>
     </div>
 </ng-template>
+
+<app-modal-date></app-modal-date>

@@ -7,6 +7,7 @@ import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMo
 import {MAT_DIALOG_DATA, MatDialogRef,MatDialog} from '@angular/material/dialog';
 import { Subject } from 'rxjs';
 import { CustomDateFormatter } from './custom-date-formatter.provider';
+import { ModalService } from 'src/app/resusableComp/modal-upload/modal.service';
 
 
 const colors: any = {
@@ -27,8 +28,18 @@ const colors: any = {
 @Component({
   selector: 'app-dashboad',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
   templateUrl: './dashboad.component.html',
   styleUrls: ['./dashboad.component.scss'],
+  styles: [
+    `
+      .cal-month-view .bg-pink,
+      .cal-week-view .cal-day-columns .bg-pink,
+      .cal-day-view .bg-pink {
+        background-color: hotpink !important;
+      }
+    `,
+  ],
   providers: [
     {
       provide: CalendarDateFormatter,
@@ -38,7 +49,7 @@ const colors: any = {
 })
 export class DashboadComponent implements OnInit {
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, public modalService:ModalService) { }
 
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
   viewDate: Date = new Date();
@@ -86,11 +97,14 @@ export class DashboadComponent implements OnInit {
   ];
 
   //****************************************************************************************************** */
+    // Podría hacer una consulta para ver que día es el que quiero bloquear  y a partir de ahí que 
+    // añadir ese día y horas al método para que bloquee
+  //****************************************************************************************************** */
 
   beforeMonthViewRender(renderEvent: CalendarMonthViewBeforeRenderEvent): void {
     renderEvent.body.forEach((day) => {
       const dayOfMonth = day.date.getDate();
-      if (dayOfMonth > 5 && dayOfMonth < 10 && day.inMonth) {
+      if (dayOfMonth > 5 && dayOfMonth < 10) {
         day.cssClass = 'bg-pink';
       }
     });
@@ -164,8 +178,8 @@ dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
 
 dateClickedF(event) {
   console.log(event);
+  this.modalService.mostrarModalCalendar(event);
   this.clickedDate = event;
-  alert(event)
 }
 
 clickedColumnF(event) {
