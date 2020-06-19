@@ -3,6 +3,7 @@
 
 import { Injectable } from '@angular/core';
 import { EventEmitter } from '@angular/core';
+import { UsuarioService } from '../../services/usuario/usuario.service';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +29,7 @@ export class ModalService {
   hour;
   
 
-  constructor() { 
+  constructor(public usuarioService: UsuarioService) { 
     // console.log('Modal upload ready')
   }
 
@@ -53,11 +54,15 @@ export class ModalService {
 
   mostrarModalCalendar(date) {
     this.calendarDate = date; 
+    this.date = date;
+    this.nombre = this.usuarioService.usuario.nombre;
     this.ocultoCalendar = '';
   }
 
   saveCita() {
     console.log(this.calendarDate)
+    console.log(this.date)
+    console.log(this.nombre)
   }
 
 }
