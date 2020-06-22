@@ -3,11 +3,12 @@ import { CalendarEvent, CalendarEventAction,
           CalendarView, DAYS_OF_WEEK, CalendarEventTimesChangedEvent,
            CalendarMonthViewBeforeRenderEvent, CalendarWeekViewBeforeRenderEvent,
             CalendarDayViewBeforeRenderEvent, CalendarDateFormatter} from 'angular-calendar';
-import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours} from 'date-fns';
+import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours, parseISO} from 'date-fns';
 import {MAT_DIALOG_DATA, MatDialogRef,MatDialog} from '@angular/material/dialog';
 import { Subject } from 'rxjs';
 import { CustomDateFormatter } from './custom-date-formatter.provider';
 import { ModalService } from 'src/app/resusableComp/modal-upload/modal.service';
+import * as moment from 'moment';
 
 
 const colors: any = {
@@ -49,7 +50,7 @@ const colors: any = {
 })
 export class DashboadComponent implements OnInit {
 
-  constructor(public dialog: MatDialog, public modalService:ModalService) { }
+  constructor(public dialog: MatDialog, public modalService:ModalService) { this.getDataEvents() }
 
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
   viewDate: Date = new Date();
@@ -80,21 +81,7 @@ export class DashboadComponent implements OnInit {
 
 
 
-  events: CalendarEvent[] = [
-    {
-      start: subDays(startOfDay(new Date()), 1),
-      end: addDays(new Date(), 1),
-      title: 'A 3 day event',
-      color: colors.red,
-      actions: this.actions,
-      allDay: true,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true,
-      },
-      draggable: true,
-    },
-  ];
+  events: CalendarEvent[] = [ ];
 
   //****************************************************************************************************** */
     // Podría hacer una consulta para ver que día es el que quiero bloquear  y a partir de ahí que 
@@ -141,20 +128,20 @@ export class DashboadComponent implements OnInit {
 
 
   addEvent(): void {
-    this.events = [
-      ...this.events,
-      {
-        title: 'New event',
-        start: startOfDay(new Date()),
-        end: endOfDay(new Date()),
-        color: colors.red,
-        draggable: true,
-        resizable: {
-          beforeStart: true,
-          afterEnd: true,
-        },
-      },
-    ];
+    // this.events = [
+    //   ...this.events,
+    //   {
+    //     title: 'New event',
+    //     start: startOfDay(new Date()),
+    //     end: endOfDay(new Date()),
+    //     color: colors.red,
+    //     draggable: true,
+    //     resizable: {
+    //       beforeStart: true,
+    //       afterEnd: true,
+    //     },
+    //   },
+    // ];
   }
 
   // *************************************************************************************************
@@ -238,16 +225,59 @@ eventTimesChanged({
 openDialog(modalData: any) {
   // const dialogRef = this.dialog.open(eventInfoPopUp);
 
-  let dialogRef = this.dialog.open(eventInfoPopUp, {
-    data: { modalData },
-  });
+  // let dialogRef = this.dialog.open(eventInfoPopUp, {
+  //   data: { modalData },
+  // });
 
 }
 
 
 refresh: Subject<any> = new Subject();
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  getDataEvents() {
+   
+      this.modalService.getDates().subscribe( resp => {
+        this.eventsArray = resp;
+        // console.log(this.eventsArray);
+        const dataEvent = [];
+
+        var date = new Date().getTime() + 3600000;
+
+        var endDate =  parseISO(moment(this.eventsArray[0].date).utc().local(true).add(1, 'h').format());
+        console.log(endDate)
+
+        for (let value of this.eventsArray) {
+          
+          var startDate =  parseISO(moment(value.date).utc().local(true).format());
+          var endDate =  parseISO(moment(value.date).utc().local(true).add(1, 'h').format());
+
+          
+  
+          dataEvent.push(
+            {
+            // start: parseISO(value.date),
+            start: startDate,
+            end: endDate,
+            title: value.nombre,
+            allDay: false,
+            color: colors.yellow,
+            draggable: false,
+            actions: this.actions,
+            // meta: {
+            //       control_id: value.CTRL_ID,
+            //       risk_id: value.RISK_ID,
+            //       responsable: value.RESPONSABLE,
+            //       executed: value.CTRL_CHECK
+            // },
+          })
+        }
+          
+    
+         this.events = dataEvent;
+         console.log(dataEvent)
+        });
   }
 
 }

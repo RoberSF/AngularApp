@@ -39,11 +39,11 @@
     </mwl-calendar-month-view>
 
     <mwl-calendar-week-view (beforeViewRender)="beforeDayViewRender($event)" (beforeViewRender)="beforeWeekViewRender($event)" (dayHeaderClicked)="clickedColumnF($event.day.date)" (hourSegmentClicked)="dateClickedF($event.date)" [locale]="locale" [excludeDays]="excludeDays"
-        *ngSwitchCase="CalendarView.Week" [viewDate]="viewDate" [events]="events" [refresh]="refresh" (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)">
+        *ngSwitchCase="CalendarView.Week" [viewDate]="viewDate" [events]="events" [refresh]="refresh" (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)" [dayStartHour]="10" [dayEndHour]="20">
     </mwl-calendar-week-view>
 
     <mwl-calendar-day-view (hourSegmentClicked)="dateClickedF($event.date)" [locale]="locale" *ngSwitchCase="CalendarView.Day" [viewDate]="viewDate" [events]="events" [refresh]="refresh" (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)"
-        [dayStartHour]="10" [dayEndHour]="19">
+        [dayStartHour]="10" [dayEndHour]="20">
     </mwl-calendar-day-view>
 </div>
 

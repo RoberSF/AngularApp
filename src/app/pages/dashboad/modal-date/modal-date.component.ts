@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalService } from 'src/app/resusableComp/modal-upload/modal.service';
+import { DateCita } from 'src/app/models/date.model';
 
 @Component({
   selector: 'app-modal-date',
@@ -19,12 +20,22 @@ export class ModalDateComponent implements OnInit {
     this.modalService.ocultarModalCalendar();
   }
 
-  saveCita() {
-    this.modalService.saveCita();
-  }
+  // saveCita() {
+  //   this.modalService.saveCita();
+  // }
 
   dateForm(form) {
-    console.log(form.value)
+    console.log(form.value);
+
+    let date = new DateCita (
+      form.value.nombre,
+      form.value.date,
+      form.value.observations
+    );
+
+    this.modalService.postCita(date).subscribe(
+      response => {
+        console.log(response) });
   }
 
 }

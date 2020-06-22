@@ -32,10 +32,12 @@ import { PhotoClickableComponent } from './photo-clickable/photo-clickable.compo
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import localeEs from '@angular/common/locales/es';
+import localeEn from '@angular/common/locales/en';
 import { ModalDateComponent } from './dashboad/modal-date/modal-date.component';
 
 registerLocaleData(localeFr);
 registerLocaleData(localeEs, 'es');
+registerLocaleData(localeEs, 'en');
 
 @NgModule({
   declarations: [
@@ -78,7 +80,7 @@ registerLocaleData(localeEs, 'es');
     MatDialogModule,
     DragDropModule
   ],
-  providers: [HospitalService, {provide: LOCALE_ID, useValue: 'es'}],
+  providers: [HospitalService, {provide: LOCALE_ID, useValue: 'en'}],
 
   entryComponents: [
     eventInfoPopUp
