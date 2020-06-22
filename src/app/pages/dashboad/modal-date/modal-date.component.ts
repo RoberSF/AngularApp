@@ -8,6 +8,8 @@ import { ModalService } from 'src/app/resusableComp/modal-upload/modal.service';
 })
 export class ModalDateComponent implements OnInit {
 
+  idioma: string = 'es' //el idioma por defecto ya es español pero le pongo esto a modo de ejemplo. Controla el pipe en el html
+
   constructor(public modalService:ModalService) { }
 
   ngOnInit() {
@@ -19,6 +21,10 @@ export class ModalDateComponent implements OnInit {
 
   saveCita() {
     this.modalService.saveCita();
+  }
+
+  dateForm(form) {
+    console.log(form.value)
   }
 
 }

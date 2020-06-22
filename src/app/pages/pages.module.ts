@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { DashboadComponent, eventInfoPopUp } from '../pages/dashboad/dashboad.component';
 import { ProgressComponent } from '../pages/progress/progress.component';
 import { Chart1Component } from '../pages/chart1/chart1.component';
@@ -78,7 +78,7 @@ registerLocaleData(localeEs, 'es');
     MatDialogModule,
     DragDropModule
   ],
-  providers: [HospitalService],
+  providers: [HospitalService, {provide: LOCALE_ID, useValue: 'es'}],
 
   entryComponents: [
     eventInfoPopUp

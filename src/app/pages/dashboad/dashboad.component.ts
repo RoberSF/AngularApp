@@ -53,7 +53,7 @@ export class DashboadComponent implements OnInit {
 
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
   viewDate: Date = new Date();
-  view: CalendarView = CalendarView.Month;
+  view: CalendarView = CalendarView.Week;
   CalendarView = CalendarView;
   locale: string = 'es';
   clickedDate: Date;

@@ -27,6 +27,7 @@ export class ModalService {
   date;
   onlyDate;
   hour;
+  observaciones= '';
   
 
   constructor(public usuarioService: UsuarioService) { 
