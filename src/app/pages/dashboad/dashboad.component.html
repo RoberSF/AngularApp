@@ -2,13 +2,13 @@
     <div class="col-md-4">
         <div class="btn-group">
             <div class="btn btn-primary" [excludeDays]="excludeDays" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="closeOpenMonthViewDay()">
-                Mes Anterior
+                Anterior
             </div>
             <div class="btn btn-outline-secondary" mwlCalendarToday [(viewDate)]="viewDate">
-                Mes Actual
+                Actual
             </div>
             <div class="btn btn-primary" [excludeDays]="excludeDays" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="closeOpenMonthViewDay()">
-                Mes Siguiente
+                Siguiente
             </div>
         </div>
     </div>
@@ -39,11 +39,11 @@
     </mwl-calendar-month-view>
 
     <mwl-calendar-week-view (beforeViewRender)="beforeDayViewRender($event)" (beforeViewRender)="beforeWeekViewRender($event)" (dayHeaderClicked)="clickedColumnF($event.day.date)" (hourSegmentClicked)="dateClickedF($event.date)" [locale]="locale" [excludeDays]="excludeDays"
-        *ngSwitchCase="CalendarView.Week" [viewDate]="viewDate" [events]="events" [refresh]="refresh" (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)" [dayStartHour]="10" [dayEndHour]="20">
+        [hourSegments]="1" *ngSwitchCase="CalendarView.Week" [viewDate]="viewDate" [events]="events" [refresh]="refresh" (eventClicked)="handleEvent('Clicked', $event)" (eventTimesChanged)="eventTimesChanged($event)" [dayStartHour]="10" [dayEndHour]="20">
     </mwl-calendar-week-view>
 
     <mwl-calendar-day-view (hourSegmentClicked)="dateClickedF($event.date)" [locale]="locale" *ngSwitchCase="CalendarView.Day" [viewDate]="viewDate" [events]="events" [refresh]="refresh" (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)"
-        [dayStartHour]="10" [dayEndHour]="20">
+        [dayStartHour]="10" [dayEndHour]="20" [hourSegments]="1">
     </mwl-calendar-day-view>
 </div>
 
@@ -64,8 +64,6 @@
         <thead>
             <tr>
                 <th>Title</th>
-                <th>Primary color</th>
-                <th>Secondary color</th>
                 <th>Starts at</th>
                 <th>Ends at</th>
                 <th>Remove</th>
@@ -73,24 +71,19 @@
         </thead>
 
         <tbody>
-            <tr *ngFor="let event of events">
+            <tr *ngFor="let date of events">
                 <td>
-                    <input type="text" class="form-control" [(ngModel)]="event.title" (keyup)="refresh.next()" />
+                    <input type="text" class="form-control" [(ngModel)]="date.title" (keyup)="refresh.next()" />
                 </td>
                 <td>
-                    <input type="color" [(ngModel)]="event.color.primary" (change)="refresh.next()" />
+                    <input class="form-control" type="text" mwlFlatpickr [ngModel]="date.start | date:'medium'" (ngModelChange)="refresh.next()" dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set" />
+
                 </td>
                 <td>
-                    <input type="color" [(ngModel)]="event.color.secondary" (change)="refresh.next()" />
+                    <input class="form-control" type="text" mwlFlatpickr [ngModel]="date.end | date:'medium'" (ngModelChange)="refresh.next()" dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set" />
                 </td>
                 <td>
-                    <input class="form-control" type="text" mwlFlatpickr [(ngModel)]="event.start" (ngModelChange)="refresh.next()" dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set" />
-                </td>
-                <td>
-                    <input class="form-control" type="text" mwlFlatpickr [(ngModel)]="event.end" (ngModelChange)="refresh.next()" dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set" />
-                </td>
-                <td>
-                    <button class="btn btn-danger">
+                    <button (click)="deleteDate(date.meta)" class="btn btn-danger">
             Delete
           </button>
                 </td>

@@ -24,8 +24,11 @@ export class ModalService {
 
   notificacion = new EventEmitter<any>();
 
+  notificacionNewDate = new EventEmitter<any>();
+
   calendarDate;
 
+  eventId;
 
   nombre;
   date;
@@ -42,12 +45,14 @@ export class ModalService {
     var headers = new HttpHeaders({
       'Content-Type': 'application/json',
        Authorization: this.usuarioService.token
-    });    
-
+    });  
+    
+    
     return this.http.post('http://localhost:4000/date',formCita, {headers: headers})
     .pipe(map(
       (resp:any) => {
         swal('Cita creada', resp.citas.date, 'success');
+        this.ocultarModalCalendar();
         return resp;
       }),
       catchError(err => {
@@ -55,6 +60,19 @@ export class ModalService {
         swal('error');
         return throwError('Error');
       }));
+  }
+
+  searchDate(date) {
+
+    let fechaParam = date.date;
+    
+    return this.http.get(`http://localhost:4000/date/searchDate/${fechaParam}`)
+    .pipe(map(
+      (resp:any) => {
+        this.ocultarModalCalendar();
+        return resp;
+      })
+    )
   }
 
   getDates() {
@@ -85,6 +103,8 @@ export class ModalService {
   
   ocultarModalCalendar() {
     this.ocultoCalendar = 'oculto'
+    this.date = '';
+    this.eventId = '';
   }
 
   mostrarModal( tipo:string, id: string ) {
@@ -93,12 +113,30 @@ export class ModalService {
     this.tipo = tipo;
   }
 
-  mostrarModalCalendar(date) {
-    this.calendarDate = date; 
-    this.date = date;
+  mostrarModalCalendar(data) {
+    this.date = data;
     this.nombre = this.usuarioService.usuario.nombre;
     this.ocultoCalendar = '';
   }
+  mostrarModalCalendarwithInfo(data) {
+    this.date = data.event.start;
+    this.nombre = this.usuarioService.usuario.nombre;
+    this.ocultoCalendar = '';
+    this.eventId = data.event.meta.id
+    
+  }
+
+
+  deleteDate(id: string) {
+
+    var headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+       Authorization: this.usuarioService.token
+    });
+  
+  
+    return this.http.delete(`http://localhost:4000/date/${id}`, {headers: headers} )
+  };
 
   // saveCita() {
   //   console.log(this.calendarDate)

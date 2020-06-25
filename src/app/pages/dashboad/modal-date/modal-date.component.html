@@ -44,7 +44,10 @@
                                     <textarea [(ngModel)]="modalService.observaciones" name="observations" class="form-control" placeholder="Ecribe tu observación..."></textarea>
                                 </div>
                                 <div class="modal-footer">
+
+                                    <button (click)="deleteDate()" type="button" class="btn btn-secondary" data-dismiss="modal">Borrar cita</button>
                                     <button (click)="cerrarModal()" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
                                     <button type="submit" class="btn btn-primary">Guarda la cita</button>
                                 </div>
                             </form>

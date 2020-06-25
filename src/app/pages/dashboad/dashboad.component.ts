@@ -4,11 +4,12 @@ import { CalendarEvent, CalendarEventAction,
            CalendarMonthViewBeforeRenderEvent, CalendarWeekViewBeforeRenderEvent,
             CalendarDayViewBeforeRenderEvent, CalendarDateFormatter} from 'angular-calendar';
 import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours, parseISO} from 'date-fns';
-import {MAT_DIALOG_DATA, MatDialogRef,MatDialog} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialogRef,MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import { Subject } from 'rxjs';
 import { CustomDateFormatter } from './custom-date-formatter.provider';
 import { ModalService } from 'src/app/resusableComp/modal-upload/modal.service';
 import * as moment from 'moment';
+import swal from 'sweetalert';
 
 
 const colors: any = {
@@ -28,7 +29,7 @@ const colors: any = {
 
 @Component({
   selector: 'app-dashboad',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush, // no carga los eventos hasta que hago click 
   encapsulation: ViewEncapsulation.None,
   templateUrl: './dashboad.component.html',
   styleUrls: ['./dashboad.component.scss'],
@@ -163,14 +164,13 @@ dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
   }
 };
 
-dateClickedF(event) {
-  console.log(event);
-  this.modalService.mostrarModalCalendar(event);
-  this.clickedDate = event;
+dateClickedF(data) {
+  this.modalService.date = data
+  this.modalService.mostrarModalCalendar(data);
+  this.clickedDate = data;
 }
 
 clickedColumnF(event) {
-  console.log(event);
   this.clickedColumn = event
 }
 
@@ -184,12 +184,7 @@ eventClicked({ event }: { event: CalendarEvent }): void {
 
 handleEvent(action: string, event: CalendarEvent): void {
   this.modalData = { event, action };
-  this.openDialog(this.modalData);
-  // this.modal.open(this.modalData, { size: 'lg' });
-}
-
-closeOpenMonthViewDay() {
-  this.activeDayIsOpen = false;
+  this.modalService.mostrarModalCalendarwithInfo(event);
 }
 
 
@@ -222,19 +217,15 @@ eventTimesChanged({
 //                                     Pop-Up
 // ***************************************************************************************************
 
-openDialog(modalData: any) {
-  // const dialogRef = this.dialog.open(eventInfoPopUp);
-
-  // let dialogRef = this.dialog.open(eventInfoPopUp, {
-  //   data: { modalData },
-  // });
-
-}
 
 
 refresh: Subject<any> = new Subject();
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.modalService.notificacionNewDate.subscribe( resp => {
+      this.getDataEvents()
+    })
+  }
 
   getDataEvents() {
    
@@ -243,21 +234,18 @@ refresh: Subject<any> = new Subject();
         // console.log(this.eventsArray);
         const dataEvent = [];
 
-        var date = new Date().getTime() + 3600000;
-
         var endDate =  parseISO(moment(this.eventsArray[0].date).utc().local(true).add(1, 'h').format());
-        console.log(endDate)
+        
 
         for (let value of this.eventsArray) {
           
           var startDate =  parseISO(moment(value.date).utc().local(true).format());
           var endDate =  parseISO(moment(value.date).utc().local(true).add(1, 'h').format());
-
+          // console.log(value);
           
   
           dataEvent.push(
             {
-            // start: parseISO(value.date),
             start: startDate,
             end: endDate,
             title: value.nombre,
@@ -265,12 +253,9 @@ refresh: Subject<any> = new Subject();
             color: colors.yellow,
             draggable: false,
             actions: this.actions,
-            // meta: {
-            //       control_id: value.CTRL_ID,
-            //       risk_id: value.RISK_ID,
-            //       responsable: value.RESPONSABLE,
-            //       executed: value.CTRL_CHECK
-            // },
+            meta: {
+                  id: value._id,
+            },
           })
         }
           
@@ -278,28 +263,30 @@ refresh: Subject<any> = new Subject();
          this.events = dataEvent;
          console.log(dataEvent)
         });
-  }
+  };
 
-}
+  
+  deleteDate(date) {
+   
+    console.log(date.id)
+    swal({
+      title: "Está seguro?",
+      text: "Una vez borrada tendrá que volver a solicitarla!",
+      icon: "warning",
+      buttons: ["Cancelar", "Borra cita"],
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+     
+      if ( willDelete) {
+        this.modalService.deleteDate(date.id).subscribe(resp=> {
+          swal('Cita Borrada');
+          this.getDataEvents();
+          
+        }) 
+      } 
 
-
-@Component({
-  selector: 'eventInfoPopUp',
-  templateUrl: 'eventInfoPopUp.html',
-  styleUrls: ['./dashboad.component.scss'],
-})
-export class eventInfoPopUp implements OnInit {
-
-
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<eventInfoPopUp>) {  }
-
-
-
-  ngOnInit(): void {
-  }
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
+    });
+  };
 
 }

@@ -1,5 +1,5 @@
 import { NgModule, LOCALE_ID } from '@angular/core';
-import { DashboadComponent, eventInfoPopUp } from '../pages/dashboad/dashboad.component';
+import { DashboadComponent } from '../pages/dashboad/dashboad.component';
 import { ProgressComponent } from '../pages/progress/progress.component';
 import { Chart1Component } from '../pages/chart1/chart1.component';
 import { PagesComponent } from '../pages/pages.component';
@@ -55,7 +55,6 @@ registerLocaleData(localeEs, 'en');
     MedicosComponent,
     MedicoComponent,
     SearchingComponent,
-    eventInfoPopUp,
     DragDropComponent,
     PhotoClickableComponent,
     ModalDateComponent
@@ -83,7 +82,6 @@ registerLocaleData(localeEs, 'en');
   providers: [HospitalService, {provide: LOCALE_ID, useValue: 'en'}],
 
   entryComponents: [
-    eventInfoPopUp
   ],
 
 })
