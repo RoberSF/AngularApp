@@ -10,6 +10,7 @@ import { CustomDateFormatter } from './custom-date-formatter.provider';
 import { ModalService } from 'src/app/resusableComp/modal-upload/modal.service';
 import * as moment from 'moment';
 import swal from 'sweetalert';
+import { UsuarioService } from '../../services/usuario/usuario.service';
 
 
 const colors: any = {
@@ -51,7 +52,13 @@ const colors: any = {
 })
 export class DashboadComponent implements OnInit {
 
-  constructor(public dialog: MatDialog, public modalService:ModalService) { this.getDataEvents() }
+
+  userRole;
+  constructor(public dialog: MatDialog, public modalService:ModalService,public usuarioService: UsuarioService ) { 
+    
+    this.getDataEvents();
+    this.userRole = this.usuarioService.usuario.role;
+    }
 
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
   viewDate: Date = new Date();
@@ -224,14 +231,13 @@ refresh: Subject<any> = new Subject();
   ngOnInit() {
     this.modalService.notificacionNewDate.subscribe( resp => {
       this.getDataEvents()
-    })
+    });
   }
 
   getDataEvents() {
    
       this.modalService.getDates().subscribe( resp => {
         this.eventsArray = resp;
-        // console.log(this.eventsArray);
         const dataEvent = [];
 
         var endDate =  parseISO(moment(this.eventsArray[0].date).utc().local(true).add(1, 'h').format());
@@ -242,19 +248,30 @@ refresh: Subject<any> = new Subject();
           var startDate =  parseISO(moment(value.date).utc().local(true).format());
           var endDate =  parseISO(moment(value.date).utc().local(true).add(1, 'h').format());
           // console.log(value);
+          var title = '';
           
-  
+          if (this.usuarioService.usuario.role === 'ADMIN_ROLE') {
+            title = value.nombre
+          }
+
+          if ( value.nombre === this.usuarioService.usuario.nombre) {
+            title = value.nombre
+          }
+
           dataEvent.push(
             {
             start: startDate,
             end: endDate,
-            title: value.nombre,
+            title: title,
             allDay: false,
             color: colors.yellow,
             draggable: false,
             actions: this.actions,
             meta: {
                   id: value._id,
+                  zone: value.zone,
+                  symptoms: value.symptoms,
+                  nombre: value.nombre
             },
           })
         }

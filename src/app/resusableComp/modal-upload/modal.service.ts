@@ -32,9 +32,9 @@ export class ModalService {
 
   nombre;
   date;
-  onlyDate;
-  hour;
   observaciones= '';
+  zone = '';
+  symptoms = '';
   
 
   constructor(public usuarioService: UsuarioService, public http: HttpClient) { 
@@ -47,7 +47,7 @@ export class ModalService {
        Authorization: this.usuarioService.token
     });  
     
-    
+    console.log(formCita)
     return this.http.post('http://localhost:4000/date',formCita, {headers: headers})
     .pipe(map(
       (resp:any) => {
@@ -56,7 +56,6 @@ export class ModalService {
         return resp;
       }),
       catchError(err => {
-        console.log(err.status);
         swal('error');
         return throwError('Error');
       }));
@@ -105,6 +104,8 @@ export class ModalService {
     this.ocultoCalendar = 'oculto'
     this.date = '';
     this.eventId = '';
+    this.zone = '';
+    this.symptoms = '';
   }
 
   mostrarModal( tipo:string, id: string ) {
@@ -118,11 +119,14 @@ export class ModalService {
     this.nombre = this.usuarioService.usuario.nombre;
     this.ocultoCalendar = '';
   }
+  
   mostrarModalCalendarwithInfo(data) {
     this.date = data.event.start;
-    this.nombre = this.usuarioService.usuario.nombre;
+    this.nombre = data.event.meta.nombre;
     this.ocultoCalendar = '';
-    this.eventId = data.event.meta.id
+    this.eventId = data.event.meta.id;
+    this.zone = data.event.meta.zone;
+    this.symptoms = data.event.meta.symptoms
     
   }
 

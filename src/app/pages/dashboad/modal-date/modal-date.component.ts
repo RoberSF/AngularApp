@@ -25,7 +25,6 @@ export class ModalDateComponent implements OnInit {
 
 
   dateForm(form) {
-    console.log(form.value);
 
     if (form.value.nombre != this.usuarioService.usuario.nombre) {
 
@@ -35,20 +34,20 @@ export class ModalDateComponent implements OnInit {
     let date = new DateCita (
       form.value.nombre,
       form.value.date,
-      form.value.observations
+      form.value.zone,
+      form.value.symptoms
     );
+
+    console.log(date)
 
     this.modalService.searchDate(date)
     .subscribe(resp => {
       
       if( resp.dates.length >= 1 ) {
-        console.log(resp.dates.length);
         swal('Esta cita ya está ocupada')
       } else {
-        console.log('Cita guardada')
             this.modalService.postCita(date).subscribe(
               response => {
-                console.log(response);
                 this.modalService.notificacionNewDate.emit(resp)
               });
       }
