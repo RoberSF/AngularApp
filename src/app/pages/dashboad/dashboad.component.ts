@@ -1,17 +1,18 @@
-import { Component, OnInit, ViewChild, TemplateRef, Inject, ChangeDetectionStrategy, ViewEncapsulation, } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, Inject, ChangeDetectionStrategy, ViewEncapsulation, ComponentFactoryResolver, OnDestroy, } from '@angular/core';
 import { CalendarEvent, CalendarEventAction, 
           CalendarView, DAYS_OF_WEEK, CalendarEventTimesChangedEvent,
            CalendarMonthViewBeforeRenderEvent, CalendarWeekViewBeforeRenderEvent,
             CalendarDayViewBeforeRenderEvent, CalendarDateFormatter} from 'angular-calendar';
 import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours, parseISO} from 'date-fns';
 import {MAT_DIALOG_DATA, MatDialogRef,MatDialog, MatDialogConfig} from '@angular/material/dialog';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { CustomDateFormatter } from './custom-date-formatter.provider';
 import { ModalService } from 'src/app/resusableComp/modal-upload/modal.service';
 import * as moment from 'moment';
 import swal from 'sweetalert';
 import { UsuarioService } from '../../services/usuario/usuario.service';
-
+import { CreateComponentComponent } from './create-component/create-component.component';
+import { CreateComponentDirective } from '../dashboad/create-component/create-component.directive';
 
 const colors: any = {
   red: {
@@ -50,17 +51,29 @@ const colors: any = {
     },
   ]
 })
-export class DashboadComponent implements OnInit {
+export class DashboadComponent implements OnInit, OnDestroy {
 
 
-  userRole;
-  constructor(public dialog: MatDialog, public modalService:ModalService,public usuarioService: UsuarioService ) { 
+  
+  constructor(public dialog: MatDialog,
+                public modalService:ModalService,
+                public usuarioService: UsuarioService,
+                private componentFactoryResolver: ComponentFactoryResolver ) { 
     
     this.getDataEvents();
     this.userRole = this.usuarioService.usuario.role;
     }
 
+  @ViewChild(CreateComponentDirective, {static:false}) createHost: CreateComponentDirective; 
+  private closeSub: Subscription;
+
+
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
+  userRole;
+
+// *************************************************************************************************
+//         Propiedades de calendario
+// ***************************************************************************************************
   viewDate: Date = new Date();
   view: CalendarView = CalendarView.Week;
   CalendarView = CalendarView;
@@ -85,9 +98,6 @@ export class DashboadComponent implements OnInit {
       },
     },
   ];
-
-
-
 
   events: CalendarEvent[] = [ ];
 
@@ -191,7 +201,8 @@ eventClicked({ event }: { event: CalendarEvent }): void {
 
 handleEvent(action: string, event: CalendarEvent): void {
   this.modalData = { event, action };
-  this.modalService.mostrarModalCalendarwithInfo(event);
+  // this.modalService.mostrarModalCalendarwithInfo(event);
+  this.createComponent(event);
 }
 
 
@@ -305,5 +316,29 @@ refresh: Subject<any> = new Subject();
 
     });
   };
+
+
+// *************************************************************************************************
+//                  Cómo hacer para que se cree un componente nuevo usando un método
+// ***************************************************************************************************
+  createComponent(data) {
+
+   const createCompFactory =  this.componentFactoryResolver.resolveComponentFactory(CreateComponentComponent);
+
+  const hostViewContainerRef = this.createHost.viewContainerRef;
+
+  hostViewContainerRef.clear();
+
+  const componentRef = hostViewContainerRef.createComponent(createCompFactory);
+
+  componentRef.instance.data = data // le paso la data que yo quiero al componente
+  this.closeSub = componentRef.instance.close.subscribe( () => {
+    this.closeSub.unsubscribe();
+  });
+  }
+
+  ngOnDestroy() {
+    this.closeSub.unsubscribe() // para cuando cerremos este omponente 
+  }
 
 }

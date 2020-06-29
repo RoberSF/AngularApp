@@ -34,6 +34,9 @@ import localeFr from '@angular/common/locales/fr';
 import localeEs from '@angular/common/locales/es';
 import localeEn from '@angular/common/locales/en';
 import { ModalDateComponent } from './dashboad/modal-date/modal-date.component';
+import { CreateComponentComponent } from './dashboad/create-component/create-component.component';
+import { CreateComponentDirective } from './dashboad/create-component/create-component.directive';
+import { createComponent } from '@angular/compiler/src/core';
 
 registerLocaleData(localeFr);
 registerLocaleData(localeEs, 'es');
@@ -57,7 +60,9 @@ registerLocaleData(localeEs, 'en');
     SearchingComponent,
     DragDropComponent,
     PhotoClickableComponent,
-    ModalDateComponent
+    ModalDateComponent,
+    CreateComponentComponent,
+    CreateComponentDirective
 
   ],
   exports: [
@@ -82,6 +87,7 @@ registerLocaleData(localeEs, 'en');
   providers: [HospitalService, {provide: LOCALE_ID, useValue: 'en'}],
 
   entryComponents: [
+    CreateComponentComponent
   ],
 
 })
