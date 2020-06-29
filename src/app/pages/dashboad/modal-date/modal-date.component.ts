@@ -3,6 +3,8 @@ import { ModalService } from 'src/app/resusableComp/modal-upload/modal.service';
 import { DateCita } from 'src/app/models/date.model';
 import { UsuarioService } from '../../../services/usuario/usuario.service';
 import swal from 'sweetalert';
+import html2canvas from 'html2canvas';
+import * as jspdf from 'jspdf';
 
 @Component({
   selector: 'app-modal-date',
@@ -64,5 +66,29 @@ export class ModalDateComponent implements OnInit {
       // location.reload()
     })
   }
+
+  print() {
+    var snackbar = document.getElementById("snackbar");
+    snackbar.className = "show";
+    setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 3000);
+
+    var data = document.getElementById('convertoToPDF');
+    html2canvas(data).then(canvas => {
+      var imgWidth = 208; //valor necesario para recoger todo el contenido dentro de los límites horizontales de un a4
+      var pageHeight = 295; //no afecta al largo del template recogido en el pdf, buscar el motivo
+      var imgHeight = canvas.height * imgWidth / canvas.width;
+      var heightLeft = imgHeight;
+ 
+      const contentDataURL = canvas.toDataURL('image/png')
+      let pdf = new jspdf('p', 'mm', 'a4'); //que vaya en mm en lugar de in podría ser lo que hace que no ocupa todo el espacio disponible en el a4
+      var position = 5;
+      pdf.addImage(contentDataURL, 'PNG', 2, position, imgWidth, imgHeight)
+      pdf.save('Cita');
+    });
+  }
+
+
+
+
 
 }
