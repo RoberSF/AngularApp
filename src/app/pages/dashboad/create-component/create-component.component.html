@@ -1,3 +1,10 @@
-<p>create-component works!</p>
+<div class="backdrop" (click)="onClose()">
 
-<button (click)="onClose()">Close</button>
+</div>
+<div class="alert-box">
+    <p>{{ data.event.title }}</p>
+    <div class="alert-box-actions">
+        <button class="btn btn-primary" (click)="onClose()">Close</button>
+    </div>
+
+</div>

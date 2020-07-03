@@ -13,11 +13,11 @@ export class CreateComponentComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.data)
+    // console.log(this.data)
   }
 
   onClose() {
-    this.close.emit(); // y cierra el componente
+    this.close.emit(this.data); // y cierra el componente
   }
 
 }

@@ -72,7 +72,7 @@ export class DashboadComponent implements OnInit, OnDestroy {
   userRole;
 
 // *************************************************************************************************
-//         Propiedades de calendario
+//                             Propiedades de calendario
 // ***************************************************************************************************
   viewDate: Date = new Date();
   view: CalendarView = CalendarView.Week;
@@ -289,7 +289,7 @@ refresh: Subject<any> = new Subject();
           
     
          this.events = dataEvent;
-         console.log(dataEvent)
+        //  console.log(dataEvent)
         });
   };
 
@@ -323,7 +323,7 @@ refresh: Subject<any> = new Subject();
 // ***************************************************************************************************
   createComponent(data) {
 
-   const createCompFactory =  this.componentFactoryResolver.resolveComponentFactory(CreateComponentComponent);
+  const createCompFactory =  this.componentFactoryResolver.resolveComponentFactory(CreateComponentComponent);
 
   const hostViewContainerRef = this.createHost.viewContainerRef;
 
@@ -332,13 +332,18 @@ refresh: Subject<any> = new Subject();
   const componentRef = hostViewContainerRef.createComponent(createCompFactory);
 
   componentRef.instance.data = data // le paso la data que yo quiero al componente
-  this.closeSub = componentRef.instance.close.subscribe( () => {
+
+  this.closeSub = componentRef.instance.close.subscribe( (data) => {
+    console.log ('Data que emite el create component' , data)
     this.closeSub.unsubscribe();
+    hostViewContainerRef.clear();
   });
   }
 
   ngOnDestroy() {
+
+    if ( this.closeSub ) {
     this.closeSub.unsubscribe() // para cuando cerremos este omponente 
-  }
+  } }
 
 }
