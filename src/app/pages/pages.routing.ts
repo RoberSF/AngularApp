@@ -15,6 +15,10 @@ import { AdminGuard } from '../services/admin.guard';
 import { VerificatokenGuard } from '../services/verificatoken.guard';
 import { DragDropComponent } from './drag-drop/drag-drop.component';
 import { PhotoClickableComponent } from './photo-clickable/photo-clickable.component';
+import { BlogComponent } from './blog/blog.component';
+import { BlogPostComponent } from './blog-post/blog-post.component';
+import { BlogEditComponent } from './blog-edit/blog-edit.component';
+import { BlogReadComponent } from './blog/blog-read/blog-read.component';
 
 
 
@@ -44,7 +48,9 @@ const pagesRoutes: Routes = [
             {path:'profile', component: ProfileComponent,  data: {title: 'PERFIL DE USUARIO'}},
             {path:'PhotoClick', component: PhotoClickableComponent,  data: {title: 'PHOTO'}},
             {path:'buscar/:value', component: SearchingComponent,  data: {title: 'BUSCAR'}},
-
+            {path:'blog', component: BlogComponent,  data: {title: 'BLOG'}},
+            {path:'blog-post/:id', component: BlogReadComponent,  data: {title: 'BLOG-POST'}}, 
+            // {path:'blog-edit', component: BlogEditComponent,  data: {title: 'BLOG-EDIT'}},
 
             {
                 path:'usuarios', 

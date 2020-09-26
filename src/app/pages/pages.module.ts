@@ -37,6 +37,10 @@ import { ModalDateComponent } from './dashboad/modal-date/modal-date.component';
 import { CreateComponentComponent } from './dashboad/create-component/create-component.component';
 import { CreateComponentDirective } from './dashboad/create-component/create-component.directive';
 import { createComponent } from '@angular/compiler/src/core';
+import { BlogComponent } from './blog/blog.component';
+import { BlogPostComponent } from './blog-post/blog-post.component';
+import { BlogEditComponent } from './blog-edit/blog-edit.component';
+import { BlogReadComponent } from './blog/blog-read/blog-read.component';
 
 registerLocaleData(localeFr);
 registerLocaleData(localeEs, 'es');
@@ -62,7 +66,11 @@ registerLocaleData(localeEs, 'en');
     PhotoClickableComponent,
     ModalDateComponent,
     CreateComponentComponent,
-    CreateComponentDirective
+    CreateComponentDirective,
+    BlogComponent,
+    BlogPostComponent,
+    BlogEditComponent,
+    BlogReadComponent
 
   ],
   exports: [

@@ -36,8 +36,6 @@ export class MedicosComponent implements OnInit {
 
   searchMedico(value: string) {
 
-    
-
     if ( value.length <= 0 ) {
       this.loadMedicos() 
       return;

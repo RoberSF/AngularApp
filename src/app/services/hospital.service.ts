@@ -92,7 +92,7 @@ export class HospitalService {
     let _url = 'http://localhost:4000' + '/hospital/' + hospital._id;
 
     return this.http.put(_url, hospital, {headers: headers}).pipe(map((resp:any) => {
-      swal('Usuario Actualizado', 'success');
+      swal('Hospital Actualizado', 'success');
       return resp.hospital;
     }));
 

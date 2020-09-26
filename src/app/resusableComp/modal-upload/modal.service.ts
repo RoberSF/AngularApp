@@ -93,6 +93,28 @@ export class ModalService {
 
   }
 
+
+  getPosts() {
+
+    var headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+       Authorization: this.usuarioService.token
+    }); 
+    return this.http.get('http://localhost:4000/post',{headers: headers})
+    .pipe(map(
+      (resp:any) => {
+        console.log(resp);
+        return resp;
+        
+      }),
+      catchError(err => {
+        console.log(err.status);
+        swal('error');
+        return throwError('Error');
+      }));
+
+  }
+
   ocultarModal() {
     
     this.oculto = 'oculto';

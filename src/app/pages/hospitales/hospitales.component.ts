@@ -14,6 +14,7 @@ export class HospitalesComponent implements OnInit {
 
 
   hospitales: Hospital[] = [];
+  
   constructor(public hospitalService: HospitalService, public modalService: ModalService) {
     this.getHospitales();
   }
