@@ -50,7 +50,7 @@ const pagesRoutes: Routes = [
             {path:'buscar/:value', component: SearchingComponent,  data: {title: 'BUSCAR'}},
             {path:'blog', component: BlogComponent,  data: {title: 'BLOG'}},
             {path:'blog-post/:id', component: BlogReadComponent,  data: {title: 'BLOG-POST'}}, 
-            // {path:'blog-edit', component: BlogEditComponent,  data: {title: 'BLOG-EDIT'}},
+            {path:'blog-edit', component: BlogEditComponent,  data: {title: 'BLOG-EDIT'}},
 
             {
                 path:'usuarios', 
