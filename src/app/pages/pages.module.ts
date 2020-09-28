@@ -41,6 +41,9 @@ import { BlogComponent } from './blog/blog.component';
 import { BlogPostComponent } from './blog-post/blog-post.component';
 import { BlogEditComponent } from './blog-edit/blog-edit.component';
 import { BlogReadComponent } from './blog/blog-read/blog-read.component';
+import { MatStepperModule, MatInputModule, MatButtonModule, MatIconModule } from '@angular/material'; 
+import { ReactiveFormsModule } from '@angular/forms';
+import { CUSTOM_ELEMENTS_SCHEMA }      from '@angular/core'; 
 
 registerLocaleData(localeFr);
 registerLocaleData(localeEs, 'es');
@@ -90,13 +93,20 @@ registerLocaleData(localeEs, 'en');
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
     BrowserAnimationsModule,
     MatDialogModule,
-    DragDropModule
+    DragDropModule,
+    MatStepperModule, 
+    MatInputModule, 
+    MatButtonModule,
+    ReactiveFormsModule,
+    MatIconModule
+    
   ],
   providers: [HospitalService, {provide: LOCALE_ID, useValue: 'en'}],
 
   entryComponents: [
     CreateComponentComponent
   ],
+  //schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 
 })
 export class PagesModule { }
